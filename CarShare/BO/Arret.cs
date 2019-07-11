@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    class Arret
+    public class Arret
     {
         public int Id { get; set; }
         public DateTime Horaire { get; set; }

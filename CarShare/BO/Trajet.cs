@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    class Trajet
+    public class Trajet
     {
         public int Id { get; set; }
         public Adresse Depart { get; set; }

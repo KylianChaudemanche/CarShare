@@ -21,7 +21,7 @@ namespace CarShare.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("ApplicationDbContext", throwIfV1Schema: false)
         {
         }
 
@@ -29,5 +29,19 @@ namespace CarShare.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<BO.Adresse> Adresses { get; set; }
+
+        public System.Data.Entity.DbSet<BO.Arret> Arrets { get; set; }
+
+        public System.Data.Entity.DbSet<BO.Conducteur> Conducteurs { get; set; }
+
+        public System.Data.Entity.DbSet<BO.Ecole> Ecoles { get; set; }
+
+        public System.Data.Entity.DbSet<BO.Trajet> Trajets { get; set; }
+
+        public System.Data.Entity.DbSet<BO.Utilisateur> Utilisateurs { get; set; }
+
+        public System.Data.Entity.DbSet<BO.Voiture> Voitures { get; set; }
     }
 }
