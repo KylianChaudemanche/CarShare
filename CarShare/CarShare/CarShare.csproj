@@ -260,15 +260,39 @@
     <Content Include="Views\Adresses\Details.cshtml" />
     <Content Include="Views\Adresses\Edit.cshtml" />
     <Content Include="Views\Adresses\Index.cshtml" />
+    <Content Include="Views\Utilisateurs\Index.cshtml" />
+    <Content Include="Views\Utilisateurs\Create.cshtml" />
+    <Content Include="Views\Utilisateurs\Delete.cshtml" />
+    <Content Include="Views\Utilisateurs\Details.cshtml" />
+    <Content Include="Views\Utilisateurs\Edit.cshtml" />
+    <Content Include="Views\Voitures\Create.cshtml" />
+    <Content Include="Views\Voitures\Delete.cshtml" />
+    <Content Include="Views\Voitures\Details.cshtml" />
+    <Content Include="Views\Voitures\Edit.cshtml" />
+    <Content Include="Views\Voitures\Index.cshtml" />
+    <Content Include="Views\Trajets\Create.cshtml" />
+    <Content Include="Views\Trajets\Delete.cshtml" />
+    <Content Include="Views\Trajets\Details.cshtml" />
+    <Content Include="Views\Trajets\Edit.cshtml" />
+    <Content Include="Views\Trajets\Index.cshtml" />
+    <Content Include="Views\Ecoles\Create.cshtml" />
+    <Content Include="Views\Ecoles\Details.cshtml" />
+    <Content Include="Views\Ecoles\Delete.cshtml" />
+    <Content Include="Views\Ecoles\Edit.cshtml" />
+    <Content Include="Views\Ecoles\Index.cshtml" />
+    <Content Include="Views\Conducteurs\Create.cshtml" />
+    <Content Include="Views\Conducteurs\Delete.cshtml" />
+    <Content Include="Views\Conducteurs\Details.cshtml" />
+    <Content Include="Views\Conducteurs\Edit.cshtml" />
+    <Content Include="Views\Conducteurs\Index.cshtml" />
+    <Content Include="Views\Arrets\Create.cshtml" />
+    <Content Include="Views\Arrets\Delete.cshtml" />
+    <Content Include="Views\Arrets\Details.cshtml" />
+    <Content Include="Views\Arrets\Edit.cshtml" />
+    <Content Include="Views\Arrets\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Arrets\" />
-    <Folder Include="Views\Conducteurs\" />
-    <Folder Include="Views\Ecoles\" />
-    <Folder Include="Views\Trajets\" />
-    <Folder Include="Views\Utilisateurs\" />
-    <Folder Include="Views\Voitures\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
