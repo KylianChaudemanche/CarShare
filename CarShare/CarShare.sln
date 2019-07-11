@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarShare", "CarShare\CarShare.csproj", "{A68F137B-52AA-44C6-905E-A61AD32F7DF3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BO", "BO\BO.csproj", "{DC162B0E-42E8-492B-9873-14076033EAFE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A68F137B-52AA-44C6-905E-A61AD32F7DF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A68F137B-52AA-44C6-905E-A61AD32F7DF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A68F137B-52AA-44C6-905E-A61AD32F7DF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC162B0E-42E8-492B-9873-14076033EAFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC162B0E-42E8-492B-9873-14076033EAFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC162B0E-42E8-492B-9873-14076033EAFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC162B0E-42E8-492B-9873-14076033EAFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
