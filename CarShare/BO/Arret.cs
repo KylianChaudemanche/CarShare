@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    public class Conducteur:Utilisateur
+    class Arret
     {
-        public string Description { get; set; }
-        public Voiture Voiture { get; set; }
+        public int Id { get; set; }
+        public DateTime Horaire { get; set; }
+        public Adresse Adresse { get; set; }
     }
 }

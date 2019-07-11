@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    class Voiture
+    public class Voiture
     {
+        public int Id { get; set; }
+        public int NbPlaces { get; set; }
+        public string Immatriculation { get; set; }
+        public string Couleur { get; set; }
+        public string Marque { get; set; }
+        public string Modele { get; set; }
+
     }
 }

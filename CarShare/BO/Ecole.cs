@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    class Passager
+    public class Ecole
     {
+        public int Id { get; set; }
+        public Adresse Adresse { get; set; }
+        public string Nom { get; set; }
     }
 }
