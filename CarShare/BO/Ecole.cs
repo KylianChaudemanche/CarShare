@@ -9,7 +9,7 @@ namespace BO
     public class Ecole
     {
         public int Id { get; set; }
-        public Adresse Adresse { get; set; }
         public string Nom { get; set; }
+        public Emplacement Emplacement { get; set; }
     }
 }

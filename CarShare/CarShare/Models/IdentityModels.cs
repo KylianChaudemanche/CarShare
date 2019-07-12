@@ -30,7 +30,7 @@ namespace CarShare.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<BO.Adresse> Adresses { get; set; }
+        public System.Data.Entity.DbSet<BO.Emplacement> Emplacements { get; set; }
 
         public System.Data.Entity.DbSet<BO.Arret> Arrets { get; set; }
 

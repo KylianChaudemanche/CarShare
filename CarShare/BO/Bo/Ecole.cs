@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    public class Arret
+    public class Ecole
     {
         public int Id { get; set; }
-        public DateTime Horaire { get; set; }
-        public Emplacement Adresse { get; set; }
-        public int IdTrajet { get; set; }
+        public string Nom { get; set; }
+        public Emplacement Coordonnees { get; set; }
     }
 }

@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    public class Adresse
+    public class Emplacement
     {
         public int Id { get; set; }
-        public string Ville { get; set; }
-        public string CodePostal { get; set; }
-        public string Rue { get; set; }
+        public string Intitule { get; set; }
+        public string Description { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
     }

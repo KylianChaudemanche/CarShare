@@ -11,24 +11,25 @@ using CarShare.Models;
 
 namespace CarShare.Controllers
 {
-    public class AdressesController : Controller
+    public class CoordonneesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Adresses
+
+        // GET: Coordonnees
         public ActionResult Index()
         {
-            return View(db.Adresses.ToList());
+            return View(db.Coordonnees.ToList());
         }
 
-        // GET: Adresses/Details/5
+        // GET: Coordonnees/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Adresse adresse = db.Adresses.Find(id);
+            Emplacement adresse = db.Coordonnees.Find(id);
             if (adresse == null)
             {
                 return HttpNotFound();
@@ -36,22 +37,22 @@ namespace CarShare.Controllers
             return View(adresse);
         }
 
-        // GET: Adresses/Create
+        // GET: Coordonnees/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Adresses/Create
+        // POST: Coordonnees/Create
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Ville,CodePostal,Rue,Latitude,Longitude")] Adresse adresse)
+        public ActionResult Create([Bind(Include = "Id,Ville,CodePostal,Rue,Latitude,Longitude")] Emplacement adresse)
         {
             if (ModelState.IsValid)
             {
-                db.Adresses.Add(adresse);
+                db.Coordonnees.Add(adresse);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -59,14 +60,14 @@ namespace CarShare.Controllers
             return View(adresse);
         }
 
-        // GET: Adresses/Edit/5
+        // GET: Coordonnees/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Adresse adresse = db.Adresses.Find(id);
+            Emplacement adresse = db.Coordonnees.Find(id);
             if (adresse == null)
             {
                 return HttpNotFound();
@@ -74,12 +75,12 @@ namespace CarShare.Controllers
             return View(adresse);
         }
 
-        // POST: Adresses/Edit/5
+        // POST: Coordonnees/Edit/5
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Ville,CodePostal,Rue,Latitude,Longitude")] Adresse adresse)
+        public ActionResult Edit([Bind(Include = "Id,Ville,CodePostal,Rue,Latitude,Longitude")] Emplacement adresse)
         {
             if (ModelState.IsValid)
             {
@@ -90,14 +91,14 @@ namespace CarShare.Controllers
             return View(adresse);
         }
 
-        // GET: Adresses/Delete/5
+        // GET: Coordonnees/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Adresse adresse = db.Adresses.Find(id);
+            Emplacement adresse = db.Coordonnees.Find(id);
             if (adresse == null)
             {
                 return HttpNotFound();
@@ -105,13 +106,13 @@ namespace CarShare.Controllers
             return View(adresse);
         }
 
-        // POST: Adresses/Delete/5
+        // POST: Coordonnees/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Adresse adresse = db.Adresses.Find(id);
-            db.Adresses.Remove(adresse);
+            Emplacement adresse = db.Coordonnees.Find(id);
+            db.Coordonnees.Remove(adresse);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
