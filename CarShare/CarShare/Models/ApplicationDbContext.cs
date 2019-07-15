@@ -64,12 +64,5 @@ namespace CarShare.Models
 
 
         }
-
-        public override IDbSet<ApplicationUser> Users {
-            get => base.Users;
-            set => base.Users = value;
-        }
-
-        public System.Data.Entity.DbSet<CarShare.BO.ApplicationUser> ApplicationUsers { get; set; }
     }
 }
