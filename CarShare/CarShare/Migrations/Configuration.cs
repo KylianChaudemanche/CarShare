@@ -9,7 +9,7 @@ namespace CarShare.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(CarShare.Models.ApplicationDbContext context)

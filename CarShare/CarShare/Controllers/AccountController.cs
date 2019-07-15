@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CarShare.Models;
+using CarShare.BO;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CarShare.Controllers
 {
@@ -203,7 +205,7 @@ namespace CarShare.Controllers
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                if (user == null || !(await UserManager.IsEmailConfirmedAsync(((IdentityUser)user).Id)))
                 {
                     // Ne révélez pas que l'utilisateur n'existe pas ou qu'il n'est pas confirmé
                     return View("ForgotPasswordConfirmation");
@@ -254,7 +256,7 @@ namespace CarShare.Controllers
                 // Ne révélez pas que l'utilisateur n'existe pas
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            var result = await UserManager.ResetPasswordAsync(((IdentityUser)user).Id, model.Code, model.Password);
             if (result.Succeeded)
             {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
@@ -287,7 +289,7 @@ namespace CarShare.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
-            var userId = await SignInManager.GetVerifiedUserIdAsync();
+            String userId = await SignInManager.GetVerifiedUserIdAsync();
             if (userId == null)
             {
                 return View("Error");
@@ -371,7 +373,7 @@ namespace CarShare.Controllers
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
-                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
+                    result = await UserManager.AddLoginAsync(((IdentityUser)user).Id, info.Login);
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);

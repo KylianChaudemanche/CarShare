@@ -47,8 +47,10 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -173,26 +175,29 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="BO\Arret.cs" />
+    <Compile Include="BO\Conducteur.cs" />
+    <Compile Include="BO\Ecole.cs" />
+    <Compile Include="BO\Emplacement.cs" />
+    <Compile Include="BO\Enumeration.cs" />
+    <Compile Include="BO\IDbEntity.cs" />
+    <Compile Include="BO\Trajet.cs" />
+    <Compile Include="BO\ApplicationUser.cs" />
+    <Compile Include="BO\Voiture.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EmplacementsController.cs" />
     <Compile Include="Controllers\ArretsController.cs" />
-    <Compile Include="Controllers\ConducteursController.cs" />
     <Compile Include="Controllers\EcolesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TrajetsController.cs" />
-    <Compile Include="Controllers\UtilisateursController.cs" />
     <Compile Include="Controllers\VoituresController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201907111209540_CreateDatabase.cs" />
-    <Compile Include="Migrations\201907111209540_CreateDatabase.Designer.cs">
-      <DependentUpon>201907111209540_CreateDatabase.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -208,6 +213,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ClassDiagram1.cd" />
+    <Content Include="ClassDiagram2.cd" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -260,11 +267,6 @@
     <Content Include="Views\Adresses\Details.cshtml" />
     <Content Include="Views\Adresses\Edit.cshtml" />
     <Content Include="Views\Adresses\Index.cshtml" />
-    <Content Include="Views\Utilisateurs\Index.cshtml" />
-    <Content Include="Views\Utilisateurs\Create.cshtml" />
-    <Content Include="Views\Utilisateurs\Delete.cshtml" />
-    <Content Include="Views\Utilisateurs\Details.cshtml" />
-    <Content Include="Views\Utilisateurs\Edit.cshtml" />
     <Content Include="Views\Voitures\Create.cshtml" />
     <Content Include="Views\Voitures\Delete.cshtml" />
     <Content Include="Views\Voitures\Details.cshtml" />
@@ -280,11 +282,6 @@
     <Content Include="Views\Ecoles\Delete.cshtml" />
     <Content Include="Views\Ecoles\Edit.cshtml" />
     <Content Include="Views\Ecoles\Index.cshtml" />
-    <Content Include="Views\Conducteurs\Create.cshtml" />
-    <Content Include="Views\Conducteurs\Delete.cshtml" />
-    <Content Include="Views\Conducteurs\Details.cshtml" />
-    <Content Include="Views\Conducteurs\Edit.cshtml" />
-    <Content Include="Views\Conducteurs\Index.cshtml" />
     <Content Include="Views\Arrets\Create.cshtml" />
     <Content Include="Views\Arrets\Delete.cshtml" />
     <Content Include="Views\Arrets\Details.cshtml" />
@@ -306,17 +303,6 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BO\BO.csproj">
-      <Project>{dc162b0e-42e8-492b-9873-14076033eafe}</Project>
-      <Name>BO</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907111209540_CreateDatabase.resx">
-      <DependentUpon>201907111209540_CreateDatabase.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

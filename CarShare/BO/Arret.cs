@@ -10,7 +10,7 @@ namespace BO
     {
         public int Id { get; set; }
         public DateTime Horaire { get; set; }
-        public Emplacement Adresse { get; set; }
-        public int IdTrajet { get; set; }
+        public Emplacement Emplacement { get; set; }
+        public virtual Trajet Trajet { get; set; }
     }
 }

@@ -11,5 +11,6 @@ namespace BO
         public int Id { get; set; }
         public string Nom { get; set; }
         public Emplacement Emplacement { get; set; }
+        public virtual List<Utilisateur> ListeUtilisateurs { get; set; }
     }
 }

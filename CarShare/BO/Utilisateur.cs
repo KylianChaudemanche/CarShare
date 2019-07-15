@@ -19,5 +19,7 @@ namespace BO
         public Ecole Ecole { get; set; }
         public List<Emplacement> EmplacementsFavoris{ get; set; }
         public bool IsAdmin { get; set; }
+        public virtual List<Trajet> ListeTrajets { get; set; }
+        public virtual Conducteur Conducteur { get; set; }
     }
 }
