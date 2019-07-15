@@ -47,7 +47,7 @@ namespace CarShare.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Intitule,Description,Latitude,Longitude")] Emplacement emplacement)
+        public ActionResult Create([Bind(Include = "Id,Ville,CodePostal,Rue,Latitude,Longitude")] Emplacement emplacement)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace CarShare.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Intitule,Description,Latitude,Longitude")] Emplacement emplacement)
+        public ActionResult Edit([Bind(Include = "Id,Ville,CodePostal,Rue,Latitude,Longitude")] Emplacement emplacement)
         {
             if (ModelState.IsValid)
             {
