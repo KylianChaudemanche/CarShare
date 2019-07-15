@@ -176,7 +176,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="BO\Arret.cs" />
-    <Compile Include="BO\Conducteur.cs" />
     <Compile Include="BO\Ecole.cs" />
     <Compile Include="BO\Emplacement.cs" />
     <Compile Include="BO\Enumeration.cs" />
@@ -262,11 +261,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Adresses\Create.cshtml" />
-    <Content Include="Views\Adresses\Delete.cshtml" />
-    <Content Include="Views\Adresses\Details.cshtml" />
-    <Content Include="Views\Adresses\Edit.cshtml" />
-    <Content Include="Views\Adresses\Index.cshtml" />
     <Content Include="Views\Voitures\Create.cshtml" />
     <Content Include="Views\Voitures\Delete.cshtml" />
     <Content Include="Views\Voitures\Details.cshtml" />
