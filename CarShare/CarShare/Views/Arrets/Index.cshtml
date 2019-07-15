@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BO.Arret>
+﻿@model IEnumerable<CarShare.BO.Arret>
 
 @{
     ViewBag.Title = "Index";
@@ -14,6 +14,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Horaire)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EtatArret)
+        </th>
         <th></th>
     </tr>
 
@@ -21,6 +24,9 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Horaire)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EtatArret)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

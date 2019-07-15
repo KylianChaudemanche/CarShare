@@ -1,4 +1,4 @@
-﻿@model BO.Arret
+﻿@model CarShare.BO.Arret
 
 @{
     ViewBag.Title = "Details";
@@ -16,6 +16,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.Horaire)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EtatArret)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EtatArret)
         </dd>
 
     </dl>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BO.Adresse>
+﻿@model IEnumerable<CarShare.BO.Emplacement>
 
 @{
     ViewBag.Title = "Index";
@@ -12,13 +12,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Ville)
+            @Html.DisplayNameFor(model => model.Intitule)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CodePostal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Rue)
+            @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Latitude)
@@ -32,13 +29,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Ville)
+            @Html.DisplayFor(modelItem => item.Intitule)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CodePostal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rue)
+            @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Latitude)

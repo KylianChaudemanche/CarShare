@@ -11,107 +11,107 @@ using CarShare.Models;
 
 namespace CarShare.Controllers
 {
-    public class ArretsController : Controller
+    public class ApplicationUsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Arrets
+        // GET: ApplicationUsers
         public ActionResult Index()
         {
-            return View(db.Arrets.ToList());
+            return View(db.ApplicationUsers.ToList());
         }
 
-        // GET: Arrets/Details/5
-        public ActionResult Details(int? id)
+        // GET: ApplicationUsers/Details/5
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Arret arret = db.Arrets.Find(id);
-            if (arret == null)
+            ApplicationUser applicationUser = db.ApplicationUsers.Find(id);
+            if (applicationUser == null)
             {
                 return HttpNotFound();
             }
-            return View(arret);
+            return View(applicationUser);
         }
 
-        // GET: Arrets/Create
+        // GET: ApplicationUsers/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Arrets/Create
+        // POST: ApplicationUsers/Create
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Horaire,EtatArret")] Arret arret)
+        public ActionResult Create([Bind(Include = "Id,IsActif,Nom,Prenom,Email,Password,Telephone,Promotion,IsAdmin,Description,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
             {
-                db.Arrets.Add(arret);
+                db.ApplicationUsers.Add(applicationUser);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(arret);
+            return View(applicationUser);
         }
 
-        // GET: Arrets/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: ApplicationUsers/Edit/5
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Arret arret = db.Arrets.Find(id);
-            if (arret == null)
+            ApplicationUser applicationUser = db.ApplicationUsers.Find(id);
+            if (applicationUser == null)
             {
                 return HttpNotFound();
             }
-            return View(arret);
+            return View(applicationUser);
         }
 
-        // POST: Arrets/Edit/5
+        // POST: ApplicationUsers/Edit/5
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Horaire,EtatArret")] Arret arret)
+        public ActionResult Edit([Bind(Include = "Id,IsActif,Nom,Prenom,Email,Password,Telephone,Promotion,IsAdmin,Description,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(arret).State = EntityState.Modified;
+                db.Entry(applicationUser).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(arret);
+            return View(applicationUser);
         }
 
-        // GET: Arrets/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: ApplicationUsers/Delete/5
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Arret arret = db.Arrets.Find(id);
-            if (arret == null)
+            ApplicationUser applicationUser = db.ApplicationUsers.Find(id);
+            if (applicationUser == null)
             {
                 return HttpNotFound();
             }
-            return View(arret);
+            return View(applicationUser);
         }
 
-        // POST: Arrets/Delete/5
+        // POST: ApplicationUsers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            Arret arret = db.Arrets.Find(id);
-            db.Arrets.Remove(arret);
+            ApplicationUser applicationUser = db.ApplicationUsers.Find(id);
+            db.ApplicationUsers.Remove(applicationUser);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
