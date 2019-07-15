@@ -47,7 +47,7 @@ namespace CarShare.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Horaire")] Arret arret)
+        public ActionResult Create([Bind(Include = "Id,Horaire,EtatArret")] Arret arret)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace CarShare.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Horaire")] Arret arret)
+        public ActionResult Edit([Bind(Include = "Id,Horaire,EtatArret")] Arret arret)
         {
             if (ModelState.IsValid)
             {

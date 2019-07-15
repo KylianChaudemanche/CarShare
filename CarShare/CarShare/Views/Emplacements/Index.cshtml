@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CarShare.BO.Voiture>
+﻿@model IEnumerable<CarShare.BO.Emplacement>
 
 @{
     ViewBag.Title = "Index";
@@ -12,19 +12,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.NbPlaces)
+            @Html.DisplayNameFor(model => model.Intitule)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Immatriculation)
+            @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Couleur)
+            @Html.DisplayNameFor(model => model.Latitude)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Marque)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Modele)
+            @Html.DisplayNameFor(model => model.Longitude)
         </th>
         <th></th>
     </tr>
@@ -32,19 +29,16 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.NbPlaces)
+            @Html.DisplayFor(modelItem => item.Intitule)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Immatriculation)
+            @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Couleur)
+            @Html.DisplayFor(modelItem => item.Latitude)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Marque)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Modele)
+            @Html.DisplayFor(modelItem => item.Longitude)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
