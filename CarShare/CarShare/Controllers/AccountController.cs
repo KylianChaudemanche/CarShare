@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using CarShare.Models;
 using CarShare.BO;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 
 namespace CarShare.Controllers
 {
@@ -141,7 +142,11 @@ namespace CarShare.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            var emplacement = new Emplacement() { Id = 1, Intitule = "ENI Rennes", Description = "L'école ENI de Chartres de Bretagne", Latitude = (long)48.038909, Longitude = (long)-1.692360 };
+            List<Ecole> EcolesDispo = new List<Ecole>();
+            EcolesDispo.Add(new Ecole() { Id = 1, Nom = "ENI RENNES", Emplacement = emplacement });
+            RegisterViewModel registerVM = new RegisterViewModel() { EcolesDispo = EcolesDispo };
+            return View(registerVM);
         }
 
         //
@@ -153,24 +158,32 @@ namespace CarShare.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var emplacement = new Emplacement() { Id = 1, Intitule = "ENI Rennes", Description = "L'école ENI de Chartres de Bretagne", Latitude = (long)48.038909, Longitude = (long)-1.692360 };
+                List<Ecole> EcolesDispo = new List<Ecole>();
+                EcolesDispo.Add(new Ecole() { Id = 1, Nom = "ENI RENNES", Emplacement = emplacement });
+                var selectedEcole = EcolesDispo.First(e => e.Id == model.IdSelectedEcole);
+                var user = new ApplicationUser { Nom = model.Nom, Prenom = model.Prenom,PhoneNumber=model.Telephone,Ecole= selectedEcole, UserName = model.Prenom+" "+model.Nom, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // Pour plus d'informations sur l'activation de la confirmation de compte et de la réinitialisation de mot de passe, visitez https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Envoyer un message électronique avec ce lien
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirmez votre compte", "Confirmez votre compte en cliquant <a href=\"" + callbackUrl + "\">ici</a>");
 
+                    //Pour plus d'informations sur l'activation de la confirmation de compte et de la réinitialisation de mot de passe, visitez https://go.microsoft.com/fwlink/?LinkID=320771
+                    //Envoyer un message électronique avec ce lien
+                    //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    //await UserManager.SendEmailAsync(user.Id, "Confirmez votre compte", "Confirmez votre compte en cliquant <a href=\"" + callbackUrl + "\">ici</a>");
+                    
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
 
             // Si nous sommes arrivés là, un échec s’est produit. Réafficher le formulaire
+            var emplacementRetour = new Emplacement() { Id = 1, Intitule = "ENI Rennes", Description = "L'école ENI de Chartres de Bretagne", Latitude = (long)48.038909, Longitude = (long)-1.692360 };
+            List<Ecole> EcolesDispoRetour = new List<Ecole>();
+            EcolesDispoRetour.Add(new Ecole() { Id = 1, Nom = "ENI RENNES", Emplacement = emplacementRetour });
+            model.EcolesDispo = EcolesDispoRetour;
             return View(model);
         }
 

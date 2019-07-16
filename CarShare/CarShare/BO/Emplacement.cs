@@ -11,10 +11,8 @@ namespace CarShare.BO
     {
         public string Intitule { get; set; }
         public string Description { get; set; }
-        public long Latitude { get; set; }
-        public long Longitude { get; set; }
-        public virtual Ecole Ecole { get; set; }
-        public virtual Arret Arret { get; set; }
+        public float Latitude { get; set; }
+        public float Longitude { get; set; }
 
         private int id;
         [Key]
