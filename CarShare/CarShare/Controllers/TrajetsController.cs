@@ -46,7 +46,6 @@ namespace CarShare.Controllers
         public ActionResult Create()
         {
             var vm = new TrajetsViewModels();
-            vm.Conducteur = toto;
 
             return View();
         }
