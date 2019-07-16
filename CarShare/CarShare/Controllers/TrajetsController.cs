@@ -15,6 +15,12 @@ namespace CarShare.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        public void init()
+        {
+          
+
+        }
+
         // GET: Trajets
         public ActionResult Index()
         {
@@ -39,6 +45,9 @@ namespace CarShare.Controllers
         // GET: Trajets/Create
         public ActionResult Create()
         {
+            var vm = new TrajetsViewModels();
+            vm.Conducteur = toto;
+
             return View();
         }
 

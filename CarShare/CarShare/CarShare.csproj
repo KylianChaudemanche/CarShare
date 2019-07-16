@@ -180,6 +180,7 @@
     <Compile Include="BO\Emplacement.cs" />
     <Compile Include="BO\Enumeration.cs" />
     <Compile Include="BO\IDbEntity.cs" />
+    <Compile Include="BO\JeuxDeDonnees.cs" />
     <Compile Include="BO\Trajet.cs" />
     <Compile Include="BO\ApplicationUser.cs" />
     <Compile Include="BO\Voiture.cs" />
@@ -198,6 +199,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\TrajetsViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
