@@ -22,9 +22,13 @@ namespace CarShare
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/leaflet-routing-machine").Include(
+                     "~/Scripts/leaflet-routing-machine.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/leaflet-routing-machine.css"));
         }
     }
 }
