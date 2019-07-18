@@ -144,11 +144,7 @@ namespace CarShare.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            var emplacement = new Emplacement() { Id = 1, Intitule = "ENI Rennes", Description = "L'école ENI de Chartres de Bretagne", Latitude = (long)48.038909, Longitude = (long)-1.692360 };
-            List<Ecole> EcolesDispo = new List<Ecole>();
-            EcolesDispo.Add(new Ecole() { Id = 1, Nom = "ENI RENNES", Emplacement = emplacement });
-            RegisterViewModel registerVM = new RegisterViewModel() { EcolesDispo = EcolesDispo };
-            return View(registerVM);
+            return View();
         }
 
         //
@@ -158,11 +154,10 @@ namespace CarShare.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            List<Ecole> EcolesDispo = db.Ecoles.ToList();
+            
             if (ModelState.IsValid)
             {
-                var selectedEcole = EcolesDispo.First(e => e.Id == model.IdSelectedEcole);
-                var user = new ApplicationUser { Nom = model.Nom, Prenom = model.Prenom,PhoneNumber=model.Telephone,Ecole= selectedEcole, UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { Nom = model.Nom, Prenom = model.Prenom,PhoneNumber=model.Telephone, UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -173,14 +168,13 @@ namespace CarShare.Controllers
                     //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     //await UserManager.SendEmailAsync(user.Id, "Confirmez votre compte", "Confirmez votre compte en cliquant <a href=\"" + callbackUrl + "\">ici</a>");
-                    
+                    UserManager.AddToRole(user.Id, "Utilisateur");
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
 
             // Si nous sommes arrivés là, un échec s’est produit. Réafficher le formulaire
-            model.EcolesDispo = EcolesDispo;
             return View(model);
         }
 

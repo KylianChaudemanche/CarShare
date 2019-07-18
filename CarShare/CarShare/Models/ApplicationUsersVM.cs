@@ -12,6 +12,10 @@ namespace CarShare.Models
 
         public List<Role> ListRolesDispo { get; set; }
 
-        public List<int> IdRolesSelected { get; set; }
+        public List<string> IdRolesSelected { get; set; }
+
+        public List<Ecole> ListEcolesDispo { get; set; }
+
+        public int IdEcoleSelected { get; set; }
     }
 }

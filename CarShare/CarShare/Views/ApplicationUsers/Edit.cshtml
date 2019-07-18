@@ -58,6 +58,16 @@
     </div>
 
     <div class="form-group">
+        @Html.LabelFor(model => model.ApplicationUser.Ecole, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.IdEcoleSelected
+       ,Model.ListEcolesDispo.Select(
+           e => new SelectListItem() { Text = e.Nom, Value = e.Id.ToString() })
+       , new { htmlAttributes = new { @class = "form-control" } } )
+        </div>
+    </div>
+
+    <div class="form-group">
         @Html.LabelFor(model => model.ApplicationUser.Roles, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.ListBoxFor(model => model.IdRolesSelected

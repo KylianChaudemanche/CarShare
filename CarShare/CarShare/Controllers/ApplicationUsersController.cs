@@ -49,12 +49,22 @@ namespace CarShare.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser applicationUser = db.Users.Find(id);
-            if (applicationUser == null)
+            ApplicationUsersVM applicationUsersVM = new ApplicationUsersVM()
+            {
+                ApplicationUser = db.Users.Find(id),
+                ListEcolesDispo = db.Ecoles.ToList(),
+                ListRolesDispo = db.Role.ToList()
+            };
+
+            if (applicationUsersVM.ApplicationUser == null)
             {
                 return HttpNotFound();
             }
-            return View(applicationUser);
+            if (applicationUsersVM.ApplicationUser.Ecole != null)
+            {
+                applicationUsersVM.IdEcoleSelected = applicationUsersVM.ApplicationUser.Ecole.Id;
+            }
+            return View(applicationUsersVM);
         }
 
         // POST: ApplicationUsers/Edit/5
@@ -63,15 +73,19 @@ namespace CarShare.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
-        public ActionResult Edit([Bind(Include = "Id,Nom,Prenom,Email,Description,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
+        public ActionResult Edit(ApplicationUsersVM applicationUsersVM)
         {
+            ApplicationUser user = db.Users.FirstOrDefault(u => u.Id == applicationUsersVM.ApplicationUser.Id);
+            user.Ecole = db.Ecoles.FirstOrDefault(e => e.Id == applicationUsersVM.IdEcoleSelected);
+            user.Email = applicationUsersVM.ApplicationUser.Email;
+            user.UserName = applicationUsersVM.ApplicationUser.Email;
             if (ModelState.IsValid)
             {
-                db.Entry(applicationUser).State = EntityState.Modified;
+                db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(applicationUser);
+            return View(user);
         }
 
 
