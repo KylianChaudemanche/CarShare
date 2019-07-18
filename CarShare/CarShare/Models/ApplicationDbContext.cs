@@ -24,9 +24,9 @@ namespace CarShare.Models
 
                 // Créations Emplacements
                 Emplacement emplacementEniRennes = new Emplacement() { Id = 1, Description = "Campus de Chartre-de-Bretagne", Intitule = "ENI Rennes", Latitude = 48.038919F, Longitude = -1.692393F };
-                Emplacement emplacementToto = new Emplacement() { Id = 1, Description = "Rennes Ouest (Cleunay)", Intitule = "Chez moi", Longitude = 48.103505F, Latitude = -1.711650F };
-                Emplacement emplacement1 = new Emplacement() { Id = 2, Description = "Au niveau du LIDL", Intitule = "arret passager1", Longitude = 48.104660F, Latitude = -1.732394F };
-                Emplacement emplacement2 = new Emplacement() { Id = 3, Description = "Sur le parking d'Alma", Intitule = "arret passager2", Longitude = 48.082034F, Latitude = -1.678468F };
+                Emplacement emplacementToto = new Emplacement() { Id = 1, Description = "Rennes Ouest (Cleunay)", Intitule = "Chez moi", Latitude = 48.103505F, Longitude = -1.711650F };
+                Emplacement emplacement1 = new Emplacement() { Id = 2, Description = "Au niveau du LIDL", Intitule = "arret passager1", Latitude = 48.104660F, Longitude = -1.732394F };
+                Emplacement emplacement2 = new Emplacement() { Id = 3, Description = "Sur le parking d'Alma", Intitule = "arret passager2", Latitude = 48.082034F, Longitude = -1.678468F };
                
                 // Création Ecole
                 Ecole ecoleEniRennes = new Ecole() { Id = 1, Emplacement = emplacementEniRennes, Nom = "Chartre-de-Bretagne" };

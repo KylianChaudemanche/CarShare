@@ -87,10 +87,14 @@
 
 <script>
     // Initialisation de la carte LeafLet
-    var lat = "@Model.Arrive.Latitude ".replace(",", ".");
-    var long = "@Model.Arrive.Longitude ".replace(",", ".");
+    var departLat = "@Model.Depart.Latitude".replace(",", ".");
+    var departLong = "@Model.Depart.Longitude".replace(",", ".");
 
-    var mymap = L.map('mapid').setView([lat, long], 13);
+    var arriveeLat = "@Model.Arrive.Latitude".replace(",", ".");
+    var arriveLong = "@Model.Arrive.Longitude".replace(",", ".");
+
+
+    var mymap = L.map('mapid').setView([arriveeLat, arriveLong], 13);
 
 
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -104,8 +108,11 @@
     // Ajouts de Marqueurs fixes sur la map
     @for(int i =0; i<Model.Arrets.Count; i++)
     {
-        @:var marker = L.marker([@Model.Arrets[i].Emplacement.Latitude, @Model.Arrets[i].Emplacement.Longitude]).addTo(mymap);
-        @:marker.bindPopup("<b>Arret @i</b><br><b>Latitude: </b>@Model.Arrets[i].Emplacement.Latitude<br><b>Longitude: </b>@Model.Arrets[i].Emplacement.Longitude");
+
+        @:var lat = "@Model.Arrets[i].Emplacement.Latitude".replace(",", ".");
+        @:var long = "@Model.Arrets[i].Emplacement.Longitude".replace(",", ".");
+        @:var marker = L.marker([lat, long]).addTo(mymap);
+        @:marker.bindPopup("<b>Arret @i</b><br><b>Latitude: </b>"+lat+"<br><b>Longitude: </b>"+long);
     }
 
     // Lors d'un clique sur la carte : affiche les coordonées et propose de demander un arret
@@ -120,8 +127,9 @@
 
 
     // Configuration du routing avec Leaflet Routing Machine (plugin)
-    var depart = L.latLng(@Model.Depart.Latitude, @Model.Depart.Longitude);
-    var arrivee = L.latLng(@Model.Arrive.Latitude, @Model.Arrive.Longitude);
+    var depart = L.latLng(departLat, departLong);
+    console.log(departLat);
+    var arrivee = L.latLng(arriveeLat, arriveLong);
 
     var routeControl = L.Routing.control({
         waypoints: [
