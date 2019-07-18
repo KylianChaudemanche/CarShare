@@ -203,6 +203,7 @@
     <Compile Include="Models\ApplicationUsersVM.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ListApplicationUsersVM.cs" />
+    <Compile Include="Models\TrajetsViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

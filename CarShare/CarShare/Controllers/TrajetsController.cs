@@ -16,6 +16,12 @@ namespace CarShare.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        public void init()
+        {
+          
+
+        }
+
         // GET: Trajets
         [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Index()
@@ -43,6 +49,8 @@ namespace CarShare.Controllers
         [Authorize(Roles = "Conducteur")]
         public ActionResult Create()
         {
+            var vm = new TrajetsViewModels();
+
             return View();
         }
 
