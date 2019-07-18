@@ -21,7 +21,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Trajet.Depart, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(m => m.Trajet.Depart.Id,
+            @Html.DropDownListFor(m =>m.selectedDepart,
                                  Model.listeEmplacements.Select(a => new SelectListItem { Value = a.Id.ToString(), Text = a.Intitule}),
                                  new { htmlAttributes = new { @class = "form-control"} }
                                  )
@@ -32,7 +32,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Trajet.Arrive, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(m => m.Trajet.Arrive.Id,
+            @Html.DropDownListFor(m => m.selectedArrivee,
                                  Model.listeEmplacements.Select(a => new SelectListItem { Value = a.Id.ToString(), Text = a.Intitule}),
                                  new { htmlAttributes = new { @class = "form-control"} }
                                  )
@@ -44,7 +44,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Trajet.Date, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Trajet.Date, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+            @Html.TextBoxFor(m => m.selectedDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
             @Html.ValidationMessageFor(model => model.Trajet.Date, "", new { @class = "text-danger" })
         </div>
     </div>

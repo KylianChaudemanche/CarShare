@@ -23,7 +23,7 @@ namespace CarShare.Controllers
         // GET: Trajets
         public ActionResult Index()
         {
-            return View(db.Trajets.Include(t => t.Conducteur).Include(t => t.Passagers).Include(t => t.Depart).Include(t => t.Arrive).Include(t => t.Arrets).ToList());
+            return View(db.Trajets);
         }
 
         // GET: Trajets/Details/5
@@ -33,7 +33,7 @@ namespace CarShare.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Trajet trajet = db.Trajets.Where(t => t.Id == id).Include(t => t.Conducteur).Include(t => t.Passagers).Include(t => t.Depart).Include(t => t.Arrive).Include(t => t.Arrets).FirstOrDefault();
+            Trajet trajet = db.Trajets.Find(id);
             if (trajet == null)
             {
                 return HttpNotFound();
@@ -46,7 +46,7 @@ namespace CarShare.Controllers
         public ActionResult Create()
         {
             var vm = new TrajetsViewModels();
-            vm.Conducteur = db.Users.Where(u => u.Id == currentUser.Id).Include(u => u.Ecole.Emplacement).Include(u => u.EmplacementsFavoris).Include(u => u.Voiture).FirstOrDefault();
+            vm.Conducteur = db.Users.Find(currentUser.Id);
             vm.listeEmplacements = vm.Conducteur.EmplacementsFavoris.ToList();
             vm.listeEmplacements.Add(vm.Conducteur.Ecole.Emplacement);
             vm.selectedDepart = vm.Conducteur.EmplacementsFavoris[0].Id;
@@ -64,8 +64,7 @@ namespace CarShare.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(TrajetsViewModels vm)
         {
-            vm.Conducteur = db.Users.Where(u => u.Id == currentUser.Id).Include(u => u.Ecole.Emplacement).Include(u => u.EmplacementsFavoris).Include(u => u.Voiture).FirstOrDefault();
-            vm.listeEmplacements = vm.Conducteur.EmplacementsFavoris.ToList();
+            vm.Conducteur = db.Users.Find(currentUser.Id);
             vm.listeEmplacements = vm.Conducteur.EmplacementsFavoris.ToList();
             vm.listeEmplacements.Add(vm.Conducteur.Ecole.Emplacement);
 
@@ -78,7 +77,7 @@ namespace CarShare.Controllers
                     return View(vm);
                 }
 
-                if (vm.selectedDateDebut >= vm.selectedDateFin)
+                if (vm.selectedDateDebut > vm.selectedDateFin)
                 {
                     ModelState.AddModelError("", $"La date de Début doit être avant la date de Fin");
                     return View(vm);
@@ -92,8 +91,8 @@ namespace CarShare.Controllers
 
 
                 // Create listDate
-                vm.selectedDateDebut.AddHours(vm.selectedHeureDepart.Hour).AddMinutes(vm.selectedHeureDepart.Minute);
-                vm.selectedDateFin.AddHours(vm.selectedHeureDepart.Hour).AddMinutes(vm.selectedHeureDepart.Minute);
+                vm.selectedDateDebut = new DateTime(vm.selectedDateDebut.Year, vm.selectedDateDebut.Month, vm.selectedDateDebut.Day, vm.selectedHeureDepart.Hour, vm.selectedHeureDepart.Minute, 0);
+                vm.selectedDateFin = new DateTime(vm.selectedDateFin.Year, vm.selectedDateFin.Month, vm.selectedDateFin.Day, vm.selectedHeureDepart.Hour, vm.selectedHeureDepart.Minute, 0);
                 var listeDates = Enumerable.Range(0, 1 + vm.selectedDateFin.Subtract(vm.selectedDateDebut).Days)
                   .Select(offset => vm.selectedDateDebut.AddDays(offset))
                   .ToArray();
@@ -110,7 +109,7 @@ namespace CarShare.Controllers
                 // Create list of Trajets
                 foreach (DateTime date in listeDates)
                 {
-                    vm.Trajet = new Trajet() { Depart = db.Emplacements.SingleOrDefault(e => e.Id == vm.selectedDepart), Arrive = db.Emplacements.SingleOrDefault(e => e.Id == vm.selectedArrivee), Conducteur = db.Users.SingleOrDefault(u => u.Id == currentUser.Id), Date = date.AddHours(vm.selectedHeureDepart.Hour).AddMinutes(vm.selectedHeureDepart.Minute) };
+                    vm.Trajet = new Trajet() { Depart = db.Emplacements.SingleOrDefault(e => e.Id == vm.selectedDepart), Arrive = db.Emplacements.SingleOrDefault(e => e.Id == vm.selectedArrivee), Conducteur = db.Users.SingleOrDefault(u => u.Id == currentUser.Id), Date = new DateTime(date.Year, date.Month, date.Day, vm.selectedHeureDepart.Hour, vm.selectedHeureDepart.Minute, 0) };
                     db.Trajets.Add(vm.Trajet);
                 }
 
@@ -130,11 +129,13 @@ namespace CarShare.Controllers
             }
 
             var vm = new TrajetsViewModels();
-            //vm.Trajet = db.Trajets.Where(t => t.Id == id).Include(t => t.Arrets).Include(t => t.Depart).Include(t => t.Arrive).Include(t => t.Conducteur.Ecole.Emplacement).Include(t => t.Passagers).FirstOrDefault();
             vm.Trajet = db.Trajets.Find(id);
             vm.listeEmplacements = vm.Trajet.Conducteur.EmplacementsFavoris.ToList();
             vm.listeEmplacements.Add(vm.Trajet.Conducteur.Ecole.Emplacement);
+            vm.selectedDepart = vm.Trajet.Depart.Id;
+            vm.selectedArrivee = vm.Trajet.Arrive.Id;
             vm.selectedHeureDepart = vm.Trajet.Date;
+            vm.selectedDate = vm.Trajet.Date;
 
             if (vm.Trajet == null)
             {
@@ -148,15 +149,33 @@ namespace CarShare.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Date")] Trajet trajet)
+        public ActionResult Edit(TrajetsViewModels vm)
         {
+            vm.Trajet = db.Trajets.Find(vm.Trajet.Id);
+            vm.listeEmplacements = vm.Trajet.Conducteur.EmplacementsFavoris.ToList();
+            vm.listeEmplacements.Add(vm.Trajet.Conducteur.Ecole.Emplacement);
+
             if (ModelState.IsValid)
             {
-                db.Entry(trajet).State = EntityState.Modified;
+               
+                vm.Trajet.Depart = db.Emplacements.Find(vm.selectedDepart);
+                vm.Trajet.Arrive = db.Emplacements.Find(vm.selectedArrivee);
+                vm.Trajet.Date = new DateTime(vm.selectedDate.Year, vm.selectedDate.Month, vm.selectedDate.Day, vm.selectedHeureDepart.Hour, vm.selectedHeureDepart.Minute, 0);
+                
+                // Verifier que l'utilisateur courant n'ai pas déjà des trajets sur ce jour
+                if (db.Trajets.Where(t => t.Conducteur.Id == currentUser.Id && t.Id != vm.Trajet.Id).Where(t => t.Date.Equals(vm.Trajet.Date)).Any())
+                {
+                    ModelState.AddModelError("", $"Vous avez déja des Trajets de prévu sur cette période");
+                    return View(vm);
+                }
+                // Remove Holidays and week-ends
+                // https://stackoverflow.com/questions/3709584/business-holiday-date-handling/38366429
+
+                //db.Entry(vm.Trajet).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(trajet);
+            return View(vm);
         }
 
         // GET: Trajets/Delete/5

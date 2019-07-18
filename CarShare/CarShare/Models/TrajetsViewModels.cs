@@ -24,6 +24,8 @@ namespace CarShare.Models
         public DateTime selectedDateDebut { get; set; }
         [DataType(DataType.Date)]
         public DateTime selectedDateFin{ get; set; }
+        [DataType(DataType.Date)]
+        public DateTime selectedDate { get; set; }
         public int selectedDepart{ get; set; }
         public int selectedArrivee { get; set; }
     }
