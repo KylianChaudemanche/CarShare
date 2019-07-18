@@ -11,6 +11,7 @@ using CarShare.Models;
 
 namespace CarShare.Controllers
 {
+    [Authorize(Roles = "SuperAdmin,Admin")]
     public class EcolesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

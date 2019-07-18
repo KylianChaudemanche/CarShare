@@ -180,15 +180,18 @@
     <Compile Include="BO\Emplacement.cs" />
     <Compile Include="BO\Enumeration.cs" />
     <Compile Include="BO\IDbEntity.cs" />
+    <Compile Include="BO\Role.cs" />
     <Compile Include="BO\Trajet.cs" />
     <Compile Include="BO\ApplicationUser.cs" />
     <Compile Include="BO\Voiture.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApplicationUsersController.cs" />
     <Compile Include="Controllers\ArretsController.cs" />
     <Compile Include="Controllers\EcolesController.cs" />
     <Compile Include="Controllers\EmplacementsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\TrajetsController.cs" />
     <Compile Include="Controllers\VoituresController.cs" />
     <Compile Include="Global.asax.cs">
@@ -198,6 +201,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ListApplicationUsersVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -286,6 +290,13 @@
     <Content Include="Views\Emplacements\Details.cshtml" />
     <Content Include="Views\Emplacements\Edit.cshtml" />
     <Content Include="Views\Emplacements\Index.cshtml" />
+    <Content Include="Views\Role\Create.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\ApplicationUsers\Create.cshtml" />
+    <Content Include="Views\ApplicationUsers\Delete.cshtml" />
+    <Content Include="Views\ApplicationUsers\Details.cshtml" />
+    <Content Include="Views\ApplicationUsers\Edit.cshtml" />
+    <Content Include="Views\ApplicationUsers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

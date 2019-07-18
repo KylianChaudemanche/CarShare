@@ -11,11 +11,13 @@ using CarShare.Models;
 
 namespace CarShare.Controllers
 {
+    [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
     public class TrajetsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Trajets
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public ActionResult Index()
         {
             return View(db.Trajets.ToList());

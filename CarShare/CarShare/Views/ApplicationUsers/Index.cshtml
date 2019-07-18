@@ -1,0 +1,63 @@
+﻿@model CarShare.Models.ListApplicationUsersVM
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => Model.ListApplicationUser.FirstOrDefault().Nom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => Model.ListApplicationUser.FirstOrDefault().Prenom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => Model.ListApplicationUser.FirstOrDefault().Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => Model.ListApplicationUser.FirstOrDefault().PhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => Model.ListApplicationUser.FirstOrDefault().Roles)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.ListApplicationUser)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prenom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @foreach (var role in item.Roles)
+                {
+
+                    @Html.DisplayFor(modelItem => modelItem.ListRolesDispo.FirstOrDefault(r => r.Id == role.RoleId).Name)
+                    <br />
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

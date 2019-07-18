@@ -11,108 +11,110 @@ using CarShare.Models;
 
 namespace CarShare.Controllers
 {
-    [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
-    public class EmplacementsController : Controller
+    public class ApplicationUsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Emplacements
+        // GET: ApplicationUsers
         public ActionResult Index()
         {
-            return View(db.Emplacements.ToList());
+            ListApplicationUsersVM appUsersVM = new ListApplicationUsersVM();
+            appUsersVM.ListRolesDispo = db.Role.ToList();
+            appUsersVM.ListApplicationUser = db.Users.ToList();
+            return View(appUsersVM);
         }
 
-        // GET: Emplacements/Details/5
-        public ActionResult Details(int? id)
+        // GET: ApplicationUsers/Details/5
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Emplacement emplacement = db.Emplacements.Find(id);
-            if (emplacement == null)
+            ApplicationUser applicationUser = db.Users.Find(id);
+            if (applicationUser == null)
             {
                 return HttpNotFound();
             }
-            return View(emplacement);
+            return View(applicationUser);
         }
 
-        // GET: Emplacements/Create
+        // GET: ApplicationUsers/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Emplacements/Create
+        // POST: ApplicationUsers/Create
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Intitule,Description,Latitude,Longitude")] Emplacement emplacement)
+        public ActionResult Create([Bind(Include = "Id,Nom,Prenom,Email,Description,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
             {
-                db.Emplacements.Add(emplacement);
+                db.Users.Add(applicationUser);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(emplacement);
+            return View(applicationUser);
         }
 
-        // GET: Emplacements/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: ApplicationUsers/Edit/5
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Emplacement emplacement = db.Emplacements.Find(id);
-            if (emplacement == null)
+            ApplicationUser applicationUser = db.Users.Find(id);
+            if (applicationUser == null)
             {
                 return HttpNotFound();
             }
-            return View(emplacement);
+            return View(applicationUser);
         }
 
-        // POST: Emplacements/Edit/5
+        // POST: ApplicationUsers/Edit/5
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Intitule,Description,Latitude,Longitude")] Emplacement emplacement)
+        public ActionResult Edit([Bind(Include = "Id,Nom,Prenom,Email,Description,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(emplacement).State = EntityState.Modified;
+                db.Entry(applicationUser).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(emplacement);
+            return View(applicationUser);
         }
 
-        // GET: Emplacements/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: ApplicationUsers/Delete/5
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Emplacement emplacement = db.Emplacements.Find(id);
-            if (emplacement == null)
+            ApplicationUser applicationUser = db.Users.Find(id);
+            if (applicationUser == null)
             {
                 return HttpNotFound();
             }
-            return View(emplacement);
+            return View(applicationUser);
         }
 
-        // POST: Emplacements/Delete/5
+        // POST: ApplicationUsers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            Emplacement emplacement = db.Emplacements.Find(id);
-            db.Emplacements.Remove(emplacement);
+            ApplicationUser applicationUser = db.Users.Find(id);
+            db.Users.Remove(applicationUser);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

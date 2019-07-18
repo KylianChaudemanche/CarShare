@@ -12,20 +12,22 @@ using CarShare.Models;
 using CarShare.BO;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
+using System.Net;
+using System.Data.Entity;
 
 namespace CarShare.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db;
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -156,13 +158,11 @@ namespace CarShare.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            List<Ecole> EcolesDispo = db.Ecoles.ToList();
             if (ModelState.IsValid)
             {
-                var emplacement = new Emplacement() { Id = 1, Intitule = "ENI Rennes", Description = "L'école ENI de Chartres de Bretagne", Latitude = (long)48.038909, Longitude = (long)-1.692360 };
-                List<Ecole> EcolesDispo = new List<Ecole>();
-                EcolesDispo.Add(new Ecole() { Id = 1, Nom = "ENI RENNES", Emplacement = emplacement });
                 var selectedEcole = EcolesDispo.First(e => e.Id == model.IdSelectedEcole);
-                var user = new ApplicationUser { Nom = model.Nom, Prenom = model.Prenom,PhoneNumber=model.Telephone,Ecole= selectedEcole, UserName = model.Prenom+" "+model.Nom, Email = model.Email };
+                var user = new ApplicationUser { Nom = model.Nom, Prenom = model.Prenom,PhoneNumber=model.Telephone,Ecole= selectedEcole, UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -180,10 +180,7 @@ namespace CarShare.Controllers
             }
 
             // Si nous sommes arrivés là, un échec s’est produit. Réafficher le formulaire
-            var emplacementRetour = new Emplacement() { Id = 1, Intitule = "ENI Rennes", Description = "L'école ENI de Chartres de Bretagne", Latitude = (long)48.038909, Longitude = (long)-1.692360 };
-            List<Ecole> EcolesDispoRetour = new List<Ecole>();
-            EcolesDispoRetour.Add(new Ecole() { Id = 1, Nom = "ENI RENNES", Emplacement = emplacementRetour });
-            model.EcolesDispo = EcolesDispoRetour;
+            model.EcolesDispo = EcolesDispo;
             return View(model);
         }
 
