@@ -19,7 +19,65 @@
         </dd>
 
     </dl>
-</div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Depart)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Depart.Intitule)
+        </dd>
+
+    </dl>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Arrive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Arrive.Intitule)
+        </dd>
+
+    </dl>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Conducteur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Conducteur.Prenom)
+            @Html.DisplayFor(model => model.Conducteur.Nom)
+        </dd>
+
+    </dl>
+
+  
+    <dl class="dl-horizontal">
+        @{
+            if (Model.Passagers != null)
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.Passagers)
+                </dt>
+
+            }
+        }
+
+        @{
+            foreach (var passager in Model.Passagers)
+            {
+                <dd>
+                    - @Html.DisplayFor(model => passager.Prenom) @Html.DisplayFor(model => passager.Nom)
+                </dd>
+            }
+        }
+    </dl>
+
+
+        </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")

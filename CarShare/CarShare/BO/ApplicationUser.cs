@@ -13,20 +13,16 @@ namespace CarShare.BO
 
     public class ApplicationUser : IdentityUser
     {
-        public bool IsActif { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
         public override string Email { get; set; }
-        public string Password { get; set; }
         public string Telephone { get; set; }
-        public string Promotion { get; set; }
-        public Ecole Ecole { get; set; }
-        public List<Emplacement> EmplacementsFavoris { get; set; }
-        public bool IsAdmin { get; set; }
+        public virtual Ecole Ecole { get; set; }
+        public virtual List<Emplacement> EmplacementsFavoris { get; set; }
         public virtual List<Trajet> ListeTrajetsConducteur { get; set; }
         public virtual List<Trajet> ListeTrajetsPassager { get; set; }
         public string Description { get; set; }
-        public Voiture Voiture { get; set; }
+        public virtual Voiture Voiture { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
