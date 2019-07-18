@@ -48,6 +48,15 @@ namespace CarShare.Models
 
                 }
                 this.SaveChanges();
+                if (!roleManager.RoleExists("Conducteur"))
+                {
+                    var role = new Role();
+                    role.Name = "Conducteur";
+                    role.Force = 3;
+                    roleManager.Create(role);
+
+                }
+                this.SaveChanges();
                 if (!roleManager.RoleExists("AncienUtilisateur"))
                 {
                     var role = new Role();

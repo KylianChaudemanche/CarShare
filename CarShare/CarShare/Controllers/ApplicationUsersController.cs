@@ -11,6 +11,7 @@ using CarShare.Models;
 
 namespace CarShare.Controllers
 {
+    [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
     public class ApplicationUsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -25,6 +26,7 @@ namespace CarShare.Controllers
         }
 
         // GET: ApplicationUsers/Details/5
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -39,30 +41,8 @@ namespace CarShare.Controllers
             return View(applicationUser);
         }
 
-        // GET: ApplicationUsers/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: ApplicationUsers/Create
-        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
-        // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nom,Prenom,Email,Description,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Users.Add(applicationUser);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(applicationUser);
-        }
-
         // GET: ApplicationUsers/Edit/5
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -82,6 +62,7 @@ namespace CarShare.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Edit([Bind(Include = "Id,Nom,Prenom,Email,Description,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
@@ -93,31 +74,6 @@ namespace CarShare.Controllers
             return View(applicationUser);
         }
 
-        // GET: ApplicationUsers/Delete/5
-        public ActionResult Delete(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ApplicationUser applicationUser = db.Users.Find(id);
-            if (applicationUser == null)
-            {
-                return HttpNotFound();
-            }
-            return View(applicationUser);
-        }
-
-        // POST: ApplicationUsers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            ApplicationUser applicationUser = db.Users.Find(id);
-            db.Users.Remove(applicationUser);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {

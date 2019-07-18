@@ -200,6 +200,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\ApplicationUsersVM.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ListApplicationUsersVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
