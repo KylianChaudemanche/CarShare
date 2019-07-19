@@ -21,7 +21,6 @@ namespace CarShare.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private ApplicationDbContext db;
 
         public AccountController()
         {

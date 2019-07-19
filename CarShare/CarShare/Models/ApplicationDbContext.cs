@@ -3,7 +3,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
@@ -40,7 +39,7 @@ namespace CarShare.Models
                     Nom = "TOTO",
                     Prenom = "Toto",
                     UserName = "toto@eni.fr",
-                    Telephone = "0123456798",
+                    PhoneNumber = "0123456798",
                     EmplacementsFavoris = new List<Emplacement>() { emplacementToto },
                     Description = "Je ne supporte pas la cigarette",
                     Ecole = ecoleEniRennes
@@ -60,7 +59,7 @@ namespace CarShare.Models
                     UserName = "turlute@eni.fr",
                     Description = "Calme et Discret",
                     Ecole = ecoleEniRennes,
-                    Telephone = "987654321"
+                    PhoneNumber = "987654321"
                 };
 
                 ApplicationUser passager2 = new ApplicationUser()
@@ -72,7 +71,7 @@ namespace CarShare.Models
                     UserName = "bolognaise@eni.fr",
                     Description = "Un peu de musique ne fait pas de mal",
                     Ecole = ecoleEniRennes,
-                    Telephone = "147258369"
+                    PhoneNumber = "147258369"
                 };
                     System.Collections.Generic.List<ApplicationUser> listePassagers = new List<ApplicationUser> { passager1, passager2 };
 
