@@ -11,17 +11,20 @@ using CarShare.Models;
 
 namespace CarShare.Controllers
 {
+    [Authorize(Roles = "SuperAdmin,Admin,Utilisateur,Conducteur")]
     public class VoituresController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Voitures
+        [Authorize(Roles = "SuperAdmin,Admin")]
         public ActionResult Index()
         {
             return View(db.Voitures.ToList());
         }
 
         // GET: Voitures/Details/5
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +40,7 @@ namespace CarShare.Controllers
         }
 
         // GET: Voitures/Create
+        [Authorize(Roles = "SuperAdmin,Utilisateur")]
         public ActionResult Create()
         {
             return View();
@@ -47,6 +51,7 @@ namespace CarShare.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin,Utilisateur")]
         public ActionResult Create([Bind(Include = "Id,NbPlaces,Immatriculation,Couleur,Marque,Modele")] Voiture voiture)
         {
             if (ModelState.IsValid)
@@ -60,6 +65,7 @@ namespace CarShare.Controllers
         }
 
         // GET: Voitures/Edit/5
+        [Authorize(Roles = "SuperAdmin,Admin,Conducteur")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -79,6 +85,7 @@ namespace CarShare.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin,Admin,Conducteur")]
         public ActionResult Edit([Bind(Include = "Id,NbPlaces,Immatriculation,Couleur,Marque,Modele")] Voiture voiture)
         {
             if (ModelState.IsValid)
@@ -91,6 +98,7 @@ namespace CarShare.Controllers
         }
 
         // GET: Voitures/Delete/5
+        [Authorize(Roles = "SuperAdmin,Conducteur")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -108,6 +116,7 @@ namespace CarShare.Controllers
         // POST: Voitures/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin,Conducteur")]
         public ActionResult DeleteConfirmed(int id)
         {
             Voiture voiture = db.Voitures.Find(id);

@@ -39,7 +39,7 @@ namespace CarShare.Models
                     Nom = "TOTO",
                     Prenom = "Toto",
                     UserName = "toto@eni.fr",
-                    Telephone = "0123456798",
+                    PhoneNumber = "0123456798",
                     EmplacementsFavoris = new List<Emplacement>() { emplacementToto },
                     Description = "Je ne supporte pas la cigarette",
                     Ecole = ecoleEniRennes
@@ -59,7 +59,7 @@ namespace CarShare.Models
                     UserName = "turlute@eni.fr",
                     Description = "Calme et Discret",
                     Ecole = ecoleEniRennes,
-                    Telephone = "987654321"
+                    PhoneNumber = "987654321"
                 };
 
                 ApplicationUser passager2 = new ApplicationUser()
@@ -71,7 +71,7 @@ namespace CarShare.Models
                     UserName = "bolognaise@eni.fr",
                     Description = "Un peu de musique ne fait pas de mal",
                     Ecole = ecoleEniRennes,
-                    Telephone = "147258369"
+                    PhoneNumber = "147258369"
                 };
                     System.Collections.Generic.List<ApplicationUser> listePassagers = new List<ApplicationUser> { passager1, passager2 };
 
@@ -119,9 +119,10 @@ namespace CarShare.Models
         public DbSet<Ecole> Ecoles { get; set; }
         public DbSet<Trajet> Trajets { get; set; }
         public DbSet<Voiture> Voitures { get; set; }
+        public DbSet<Role> Role { get; set; }
 
 
-        
+
 
         public static ApplicationDbContext Create()
         {
@@ -153,8 +154,6 @@ namespace CarShare.Models
 
             modelBuilder.Entity<Trajet>().HasMany(t => t.Passagers).WithMany(p => p.ListeTrajetsPassager);
             modelBuilder.Entity<Trajet>().HasOptional(t => t.Conducteur).WithMany(c => c.ListeTrajetsConducteur);
-
-
 
             modelBuilder.Entity<Voiture>().HasOptional(v => v.Proprietaire).WithOptionalDependent(c => c.Voiture);
 

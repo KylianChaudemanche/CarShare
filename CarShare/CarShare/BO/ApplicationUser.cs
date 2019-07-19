@@ -16,7 +16,6 @@ namespace CarShare.BO
         public string Nom { get; set; }
         public string Prenom { get; set; }
         public override string Email { get; set; }
-        public string Telephone { get; set; }
         public virtual Ecole Ecole { get; set; }
         public virtual List<Emplacement> EmplacementsFavoris { get; set; }
         public virtual List<Trajet> ListeTrajetsConducteur { get; set; }

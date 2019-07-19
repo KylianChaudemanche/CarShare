@@ -11,32 +11,13 @@ using CarShare.Models;
 
 namespace CarShare.Controllers
 {
+    [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
     public class ArretsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Arrets
-        public ActionResult Index()
-        {
-            return View(db.Arrets.ToList());
-        }
-
-        // GET: Arrets/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Arret arret = db.Arrets.Find(id);
-            if (arret == null)
-            {
-                return HttpNotFound();
-            }
-            return View(arret);
-        }
-
         // GET: Arrets/Create
+        [Authorize(Roles = "SuperAdmin,Utilisateur")]
         public ActionResult Create()
         {
             return View();
@@ -47,6 +28,7 @@ namespace CarShare.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin,Utilisateur")]
         public ActionResult Create([Bind(Include = "Id,Horaire,EtatArret")] Arret arret)
         {
             if (ModelState.IsValid)
@@ -60,6 +42,7 @@ namespace CarShare.Controllers
         }
 
         // GET: Arrets/Edit/5
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -79,6 +62,7 @@ namespace CarShare.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Edit([Bind(Include = "Id,Horaire,EtatArret")] Arret arret)
         {
             if (ModelState.IsValid)
@@ -91,6 +75,7 @@ namespace CarShare.Controllers
         }
 
         // GET: Arrets/Delete/5
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -106,6 +91,7 @@ namespace CarShare.Controllers
         }
 
         // POST: Arrets/Delete/5
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
