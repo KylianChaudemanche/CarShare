@@ -6,7 +6,9 @@
 }
 
 <h2>Details</h2>
-
+<p>
+    @Html.ActionLink("Ajouter Voiture", "Create")
+</p>
 <div>
     <h4>ApplicationUser</h4>
     <hr />
@@ -52,10 +54,6 @@
         </dd>
     </dl>
 
-    @if (Model.Id == User.Identity.GetUserId())
-    {
-        @Html.ActionLink("Ajouter un vehicule", "Create", "Voitures")
-    }
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |

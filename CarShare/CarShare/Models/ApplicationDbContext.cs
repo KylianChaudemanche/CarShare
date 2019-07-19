@@ -19,6 +19,16 @@ namespace CarShare.Models
         {
             if (this.Database.CreateIfNotExists())
             {
+                // Créations Emplacements
+                Emplacement emplacementEniRennes = new Emplacement() { Id = 1, Description = "Campus de Chartre-de-Bretagne", Intitule = "ENI Rennes", Latitude = 48.038919F, Longitude = -1.692393F };
+                Emplacement emplacementEniNantes = new Emplacement() { Id = 1, Description = "Campus de Saint-Herblain", Intitule = "ENI Nantes", Latitude = 47.226717F, Longitude = -1.620898F };
+                Emplacement emplacementEniNiort = new Emplacement() { Id = 1, Description = "Campus de Niort", Intitule = "ENI Niort", Latitude = 46.316156F, Longitude = -0.471065F };
+
+                // Création Ecole
+                Ecole ecoleEniRennes = new Ecole() { Id = 1, Emplacement = emplacementEniRennes, Nom = "Chartre-de-Bretagne" };
+                Ecole ecoleEniNantes = new Ecole() { Id = 1, Emplacement = emplacementEniNantes, Nom = "Saint-Herblain" };
+                Ecole ecoleEniNiort = new Ecole() { Id = 1, Emplacement = emplacementEniNiort, Nom = "Niort" };
+
                 var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(this));
                 var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this));
 
@@ -30,7 +40,6 @@ namespace CarShare.Models
                     roleManager.Create(role);
 
                 }
-                this.SaveChanges();
                 if (!roleManager.RoleExists("Admin"))
                 {
                     var role = new Role();
@@ -39,7 +48,6 @@ namespace CarShare.Models
                     roleManager.Create(role);
 
                 }
-                this.SaveChanges();
                 if (!roleManager.RoleExists("Utilisateur"))
                 {
                     var role = new Role();
@@ -48,7 +56,14 @@ namespace CarShare.Models
                     roleManager.Create(role);
 
                 }
-                this.SaveChanges();
+                if (!roleManager.RoleExists("Conducteur"))
+                {
+                    var role = new Role();
+                    role.Name = "Conducteur";
+                    role.Force = 3;
+                    roleManager.Create(role);
+
+                }
                 if (!roleManager.RoleExists("AncienUtilisateur"))
                 {
                     var role = new Role();
@@ -59,29 +74,22 @@ namespace CarShare.Models
                 }
                 this.SaveChanges();
 
-                var emplacement = new Emplacement() { Id = 1, Intitule = "ENI Rennes", Description = "L'école ENI de Chartres de Bretagne", Latitude = (long)48.038909, Longitude = (long)-1.692360 };
-                List<Ecole> EcolesDispo = new List<Ecole>();
-                EcolesDispo.Add(new Ecole() { Id = 1, Nom = "ENI RENNES", Emplacement = emplacement });
-                var user = new ApplicationUser { Id = "1", Nom = "Admin", Prenom = "Admin", PhoneNumber = "1234567890", Ecole = EcolesDispo[0], UserName = "admin@admin.fr", Email = "admin@admin.fr", PasswordHash = "ACKvy/muH2GcO6HZB37rG4zlvaMhb3yGSse97Sc6j5a4sAOIAjkzquhLL8i0W/xrEQ==", SecurityStamp = "AMexbWsgbv606c/Gk7dpovwTd9KdAbzb381tiGTvfVwOd4fCaIfKgVFFjLi0Im7sPg==" };
+                var user = new ApplicationUser { Id = "1", Nom = "Admin", Prenom = "Admin", PhoneNumber = "1234567890", Ecole = ecoleEniNantes, UserName = "admin@admin.fr", Email = "admin@admin.fr", PasswordHash = "ACKvy/muH2GcO6HZB37rG4zlvaMhb3yGSse97Sc6j5a4sAOIAjkzquhLL8i0W/xrEQ==", SecurityStamp = "AMexbWsgbv606c/Gk7dpovwTd9KdAbzb381tiGTvfVwOd4fCaIfKgVFFjLi0Im7sPg==" };
                 this.Users.Add(user);
                 this.SaveChanges();
                 UserManager.AddToRole(user.Id, "SuperAdmin");
                 UserManager.AddToRole(user.Id, "Admin");
                 UserManager.AddToRole(user.Id, "Utilisateur");
+                
+
+                var emplacementFavoris = new Emplacement() { Id = 1, Intitule = "Chez moi", Description = "Rennes Ouest (Cleunay)", Latitude = 48.104816F, Longitude = -1.708592F };
+                var utilisateur = new ApplicationUser { Id = "2", Nom = "TOTO", Prenom = "Toto", PhoneNumber = "1234567890", Ecole = ecoleEniRennes, UserName = "toto@toto.fr", EmplacementsFavoris=new List<Emplacement>(), Email = "toto@toto.fr", PasswordHash = "ACKvy/muH2GcO6HZB37rG4zlvaMhb3yGSse97Sc6j5a4sAOIAjkzquhLL8i0W/xrEQ==", SecurityStamp = "AMexbWsgbv606c/Gk7dpovwTd9KdAbzb381tiGTvfVwOd4fCaIfKgVFFjLi0Im7sPg==" };
+                utilisateur.EmplacementsFavoris.Add(emplacementFavoris);
+                this.Users.Add(utilisateur);
                 this.SaveChanges();
+                UserManager.AddToRole(utilisateur.Id, "Utilisateur");
 
-                // Créations Emplacements
-                Emplacement emplacementEniRennes = new Emplacement() { Id = 1, Description = "Campus de Chartre-de-Bretagne", Intitule = "ENI Rennes", Latitude = 48.038919F, Longitude = -1.692393F };
-                Emplacement emplacementEniNantes = new Emplacement() { Id = 1, Description = "Campus de Saint-Herblain", Intitule = "ENI Nantes", Latitude = 47.226717F, Longitude = -1.620898F };
-                Emplacement emplacementEniNiort = new Emplacement() { Id = 1, Description = "Campus de Niort", Intitule = "ENI Niort", Latitude = 46.316156F, Longitude = -0.471065F };
 
-                // Création Ecole
-                Ecole ecoleEniRennes = new Ecole() { Id = 1, Emplacement = emplacementEniRennes, Nom = "Chartre-de-Bretagne" };
-                Ecole ecoleEniNantes = new Ecole() { Id = 1, Emplacement = emplacementEniNantes, Nom = "Saint-Herblain" };
-                Ecole ecoleEniNiort = new Ecole() { Id = 1, Emplacement = emplacementEniNiort, Nom = "Niort" };
-
-                this.Ecoles.Add(ecoleEniRennes);
-                this.Ecoles.Add(ecoleEniNantes);
                 this.Ecoles.Add(ecoleEniNiort);
                 try
                 {

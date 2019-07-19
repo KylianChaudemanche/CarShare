@@ -26,7 +26,16 @@ namespace CarShare.Controllers
         {
             var vm = new TrajetsViewModels();
             vm.currentUser = currentUser;
-            vm.listeTrajets = db.Trajets.ToList();
+            vm.listeTrajets = new List<Trajet>();
+            if(User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+            {
+                vm.listeTrajets = db.Trajets.ToList();
+            }
+            else
+            {
+                // vm.listeTrajets = db.Trajets.Where(t => t.Arrive.Id == currentUser.Ecole.Emplacement.Id || t.Depart.Id == currentUser.Ecole.Emplacement.Id).ToList();
+                vm.listeTrajets = db.Trajets.ToList();
+            }
             return View(vm);
         }
 
@@ -55,7 +64,14 @@ namespace CarShare.Controllers
             vm.Conducteur = db.Users.Find(currentUser.Id);
             vm.listeEmplacements = vm.Conducteur.EmplacementsFavoris.ToList();
             vm.listeEmplacements.Add(vm.Conducteur.Ecole.Emplacement);
-            vm.selectedDepart = vm.Conducteur.EmplacementsFavoris[0].Id;
+            if(vm.Conducteur.EmplacementsFavoris.Any())
+            {
+                vm.selectedDepart = vm.Conducteur.EmplacementsFavoris[0].Id;
+            }
+            else
+            {
+                vm.selectedDepart = vm.Conducteur.Ecole.Emplacement.Id;
+            }
             vm.selectedArrivee = vm.Conducteur.Ecole.Emplacement.Id;
             vm.selectedHeureDepart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 8, 30, 0);
             vm.selectedDateDebut = DateTime.Now;

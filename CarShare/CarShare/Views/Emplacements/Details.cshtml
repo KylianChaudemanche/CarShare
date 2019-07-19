@@ -25,26 +25,35 @@
         <dd>
             @Html.DisplayFor(model => model.Description)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Latitude)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Latitude)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Longitude)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Longitude)
-        </dd>
-
     </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+
+<div id="mapid" class="col-md-10 text-center" style="width: 1200px; height: 800px;"></div>
+
+<script>
+    // Initialisation de la carte LeafLet
+    var lat = "@Model.Latitude".replace(",", ".");
+    var long = "@Model.Longitude".replace(",", ".");
+
+
+    var mymap = L.map('mapid').setView([lat, long], 13);
+
+
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox.streets',
+    accessToken: 'pk.eyJ1IjoibWF4bWlsbCIsImEiOiJjanh6cnpsMzYwNWNiM21xdGYzaHRpdGc1In0.wmuiU2IKrhNuUb_uRCas1g'
+    }).addTo(mymap);
+
+
+    // Ajouts de Marqueurs fixes sur la map
+    var marker = L.marker([lat, long]).addTo(mymap);
+    marker.bindPopup("<b>@Model.Intitule</b><br><b>Latitude: </b>"+lat+"<br><b>Longitude: </b>"+long);
+
+</script>

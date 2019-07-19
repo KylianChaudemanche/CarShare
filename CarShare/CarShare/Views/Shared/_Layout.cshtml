@@ -37,6 +37,7 @@
                     @if (Request.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Mon Compte", "Edit/" + User.Identity.GetUserId(), "ApplicationUsers")</li>
+                        <li>@Html.ActionLink("Mes vehicules", "Index", "Voitures")</li>
                         <li>@Html.ActionLink("Trajets", "Index", "Trajets")</li>
                         <li>@Html.ActionLink("Emplacements Favoris", "Index", "Emplacements")</li>
                         if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))

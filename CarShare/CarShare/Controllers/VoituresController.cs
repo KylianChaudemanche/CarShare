@@ -10,19 +10,28 @@ using CarShare.BO;
 using CarShare.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace CarShare.Controllers
 {
-    [Authorize(Roles = "SuperAdmin,Admin,Utilisateur,Conducteur")]
+    [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
     public class VoituresController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationUser currentUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
 
         // GET: Voitures
-        [Authorize(Roles = "SuperAdmin,Admin")]
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Index()
         {
-            return View(db.Voitures.ToList());
+            if(User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+            {
+                return View(db.Voitures.ToList());
+            }
+            else
+            {
+                return View(db.Voitures.Where(v => v.Proprietaire.Id == currentUser.Id).ToList());
+            }
         }
 
         // GET: Voitures/Details/5
@@ -56,11 +65,12 @@ namespace CarShare.Controllers
         [Authorize(Roles = "SuperAdmin,Utilisateur")]
         public ActionResult Create([Bind(Include = "Id,NbPlaces,Immatriculation,Couleur,Marque,Modele")] Voiture voiture)
         {
+            var currentUserId = currentUser.Id;
             if (ModelState.IsValid)
             {
-                voiture.Proprietaire = db.Users.FirstOrDefault(u => u.Id == User.Identity.GetUserId());
-                new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db)).AddToRole(User.Identity.GetUserId(), "Conducteur");
-                var currentUser = db.Users.FirstOrDefault(u => u.Id == User.Identity.GetUserId());
+                voiture.Proprietaire = db.Users.FirstOrDefault(u => u.Id == currentUserId);
+                new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db)).AddToRole(currentUserId, "Conducteur");
+                var currentUser = db.Users.FirstOrDefault(u => u.Id == currentUserId);
                 currentUser.ListeVoitures.Add(voiture);
                 db.Voitures.Add(voiture);
                 db.SaveChanges();

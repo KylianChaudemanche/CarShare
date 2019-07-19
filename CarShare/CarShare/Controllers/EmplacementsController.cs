@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using CarShare.BO;
 using CarShare.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace CarShare.Controllers
 {
@@ -16,6 +17,7 @@ namespace CarShare.Controllers
     public class EmplacementsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationUser currentUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
 
         // GET: Emplacements
         [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
@@ -24,13 +26,12 @@ namespace CarShare.Controllers
             EmplacementViewModels vm = new EmplacementViewModels();
             if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") )
             {
-                vm.listeEmplacements = db.Emplacements.ToList();
+                return View(db.Emplacements.ToList());
             }
             else
             {
-                vm.listeEmplacements = db.Users.FirstOrDefault(u => u.Id == User.Identity.GetUserId()).EmplacementsFavoris;
+                return View(db.Users.FirstOrDefault(u => u.Id == currentUser.Id).EmplacementsFavoris);
             }
-            return View(vm);
         }
 
         // GET: Emplacements/Details/5
@@ -67,6 +68,8 @@ namespace CarShare.Controllers
             if (ModelState.IsValid)
             {
                 db.Emplacements.Add(emplacement);
+                var user = db.Users.Find(currentUser.Id);
+                user.EmplacementsFavoris.Add(emplacement);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
