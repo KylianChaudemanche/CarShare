@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using CarShare.BO;
 using CarShare.Models;
+using Microsoft.AspNet.Identity;
 
 namespace CarShare.Controllers
 {
@@ -27,7 +28,7 @@ namespace CarShare.Controllers
             }
             else
             {
-                //vm.listeEmplacements = db.Emplacements.Where(e => db.Users.Select(u => u.EmplacementsFavoris).Where(ef => ef.Contains(e)).ToList()));
+                vm.listeEmplacements = db.Users.FirstOrDefault(u => u.Id == User.Identity.GetUserId()).EmplacementsFavoris;
             }
             return View(vm);
         }
