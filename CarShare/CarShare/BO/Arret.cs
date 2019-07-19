@@ -9,10 +9,10 @@ namespace CarShare.BO
 {
     public class Arret:IDbEntity
     {
-        
+        [DataType(DataType.Date)]
         public DateTime Horaire { get; set; }
-        public Emplacement Emplacement { get; set; }
-        public virtual trajet Trajet { get; set; }
+        public virtual Emplacement Emplacement { get; set; }
+        public virtual Trajet Trajet { get; set; }
         public int EtatArret { get; set; }
 
         private int id;

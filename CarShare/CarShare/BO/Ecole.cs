@@ -10,7 +10,7 @@ namespace CarShare.BO
     public class Ecole : IDbEntity
     {
         public string Nom { get; set; }
-        public Emplacement Emplacement { get; set; }
+        public virtual Emplacement Emplacement { get; set; }
         public virtual List<ApplicationUser> ListeEleves { get; set; }
         
         private int id;
