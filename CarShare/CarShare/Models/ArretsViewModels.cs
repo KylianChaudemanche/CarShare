@@ -12,7 +12,7 @@ namespace CarShare.Models
     {
         public Arret Arret { get; set; }
 
-        public trajet Trajet { get; set; }
+        public Trajet Trajet { get; set; }
 
         public int selectedTrajet { get; set; }
 

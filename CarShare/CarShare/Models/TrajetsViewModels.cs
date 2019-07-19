@@ -9,7 +9,7 @@ namespace CarShare.Models
 {
     public class TrajetsViewModels
     {
-        public trajet Trajet { get; set; }
+        public Trajet Trajet { get; set; }
         public ApplicationUser Conducteur { get; set; }
         public List<ApplicationUser> Passagers { get; set; }
         public List<Arret> listeArrets { get; set; }

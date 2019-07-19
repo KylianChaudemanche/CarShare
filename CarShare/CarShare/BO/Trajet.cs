@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace CarShare.BO
 {
-    public class trajet : IDbEntity
+    public class Trajet : IDbEntity
     {
         public virtual Emplacement Depart { get; set; }
         public virtual Emplacement Arrive { get; set; }
-        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
         public virtual ApplicationUser Conducteur { get; set; }
         public virtual List<ApplicationUser> Passagers { get; set; }
