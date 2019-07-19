@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using CarShare.BO;
+using CarShare.Models;
+using Microsoft.AspNet.Identity;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using CarShare.BO;
-using CarShare.Models;
 
 namespace CarShare.Controllers
 {
@@ -45,26 +42,30 @@ namespace CarShare.Controllers
         [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Edit(string id)
         {
-            if (id == null)
+            if (User.Identity.GetUserId() == id || User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ApplicationUsersVM applicationUsersVM = new ApplicationUsersVM()
-            {
-                ApplicationUser = db.Users.Find(id),
-                ListEcolesDispo = db.Ecoles.ToList(),
-                ListRolesDispo = db.Role.ToList()
-            };
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                ApplicationUsersVM applicationUsersVM = new ApplicationUsersVM()
+                {
+                    ApplicationUser = db.Users.Find(id),
+                    ListEcolesDispo = db.Ecoles.ToList(),
+                    ListRolesDispo = db.Role.ToList()
+                };
 
-            if (applicationUsersVM.ApplicationUser == null)
-            {
-                return HttpNotFound();
+                if (applicationUsersVM.ApplicationUser == null)
+                {
+                    return HttpNotFound();
+                }
+                if (applicationUsersVM.ApplicationUser.Ecole != null)
+                {
+                    applicationUsersVM.IdEcoleSelected = applicationUsersVM.ApplicationUser.Ecole.Id;
+                }
+                return View(applicationUsersVM);
             }
-            if (applicationUsersVM.ApplicationUser.Ecole != null)
-            {
-                applicationUsersVM.IdEcoleSelected = applicationUsersVM.ApplicationUser.Ecole.Id;
-            }
-            return View(applicationUsersVM);
+            return Edit(User.Identity.GetUserId());
         }
 
         // POST: ApplicationUsers/Edit/5
@@ -75,6 +76,7 @@ namespace CarShare.Controllers
         [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Edit(ApplicationUsersVM applicationUsersVM)
         {
+
             ApplicationUser user = db.Users.FirstOrDefault(u => u.Id == applicationUsersVM.ApplicationUser.Id);
             user.Ecole = db.Ecoles.FirstOrDefault(e => e.Id == applicationUsersVM.IdEcoleSelected);
             user.Email = applicationUsersVM.ApplicationUser.Email;
@@ -86,6 +88,7 @@ namespace CarShare.Controllers
                 return RedirectToAction("Index");
             }
             return View(user);
+
         }
 
 
