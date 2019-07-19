@@ -11,20 +11,29 @@ using CarShare.Models;
 
 namespace CarShare.Controllers
 {
-    [Authorize(Roles = "SuperAdmin,Admin,Conducteur")]
+    [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
     public class EmplacementsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Emplacements
-        [Authorize(Roles = "SuperAdmin,Admin")]
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Index()
         {
-            return View(db.Emplacements.ToList());
+            EmplacementViewModels vm = new EmplacementViewModels();
+            if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") )
+            {
+                vm.listeEmplacements = db.Emplacements.ToList();
+            }
+            else
+            {
+                //vm.listeEmplacements = db.Emplacements.Where(e => db.Users.Select(u => u.EmplacementsFavoris).Where(ef => ef.Contains(e)).ToList()));
+            }
+            return View(vm);
         }
 
         // GET: Emplacements/Details/5
-        [Authorize(Roles = "SuperAdmin,Admin,Conducteur")]
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -40,7 +49,7 @@ namespace CarShare.Controllers
         }
 
         // GET: Emplacements/Create
-        [Authorize(Roles = "SuperAdmin,Conducteur")]
+        [Authorize(Roles = "SuperAdmin,Utilisateur")]
         public ActionResult Create()
         {
             return View();
@@ -51,7 +60,7 @@ namespace CarShare.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "SuperAdmin,Conducteur")]
+        [Authorize(Roles = "SuperAdmin,Utilisateur")]
         public ActionResult Create([Bind(Include = "Id,Intitule,Description,Latitude,Longitude")] Emplacement emplacement)
         {
             if (ModelState.IsValid)
@@ -65,7 +74,7 @@ namespace CarShare.Controllers
         }
 
         // GET: Emplacements/Edit/5
-        [Authorize(Roles = "SuperAdmin,Admin,Conducteur")]
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -85,7 +94,7 @@ namespace CarShare.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "SuperAdmin,Admin,Conducteur")]
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Edit([Bind(Include = "Id,Intitule,Description,Latitude,Longitude")] Emplacement emplacement)
         {
             if (ModelState.IsValid)
@@ -98,7 +107,7 @@ namespace CarShare.Controllers
         }
 
         // GET: Emplacements/Delete/5
-        [Authorize(Roles = "SuperAdmin,Admin,Conducteur")]
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -116,7 +125,7 @@ namespace CarShare.Controllers
         // POST: Emplacements/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "SuperAdmin,Admin,Conducteur")]
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult DeleteConfirmed(int id)
         {
             Emplacement emplacement = db.Emplacements.Find(id);

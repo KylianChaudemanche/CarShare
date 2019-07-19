@@ -1,5 +1,5 @@
 ﻿@model CarShare.BO.Trajet
-
+@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Details";
 }
@@ -115,15 +115,20 @@
         @:marker.bindPopup("<b>Arret @i</b><br><b>Latitude: </b>"+lat+"<br><b>Longitude: </b>"+long);
     }
 
-    // Lors d'un clique sur la carte : affiche les coordonées et propose de demander un arret
-    var popup = L.popup();
-    function onMapClick(e) {
-        popup
-            .setLatLng(e.latlng)
-            .setContent(e.latlng.lat + ", " + e.latlng.lng + "<br><button id=\"demanderArret\" data-lat=\"" + e.latlng.lat + "\" data-lng=\"" + e.latlng.lng + "\" onClick=\"demanderArret()\">Demander arret</button>")
-            .openOn(mymap);
+    @if(Model.Conducteur.Id != User.Identity.GetUserId())
+    {
+        <text>
+            function onMapClick(e)
+            {
+                popup
+                    .setLatLng(e.latlng)
+                    .setContent(e.latlng.lat + ", " + e.latlng.lng + "<br><button id=\"demanderArret\" data-lat=\"" + e.latlng.lat + "\" data-lng=\"" + e.latlng.lng + "\" onClick=\"demanderArret()\">Demander arret</button>")
+                    .openOn(mymap);
+            }
+            mymap.on('click', onMapClick);
+        </text>
     }
-    mymap.on('click', onMapClick);
+    
 
 
     // Configuration du routing avec Leaflet Routing Machine (plugin)

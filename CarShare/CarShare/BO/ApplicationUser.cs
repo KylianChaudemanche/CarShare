@@ -21,7 +21,7 @@ namespace CarShare.BO
         public virtual List<Trajet> ListeTrajetsConducteur { get; set; }
         public virtual List<Trajet> ListeTrajetsPassager { get; set; }
         public string Description { get; set; }
-        public virtual Voiture Voiture { get; set; }
+        public virtual List<Voiture> ListeVoitures { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

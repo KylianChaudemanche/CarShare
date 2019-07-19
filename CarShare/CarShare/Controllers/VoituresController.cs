@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using CarShare.BO;
 using CarShare.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CarShare.Controllers
 {
@@ -58,6 +59,9 @@ namespace CarShare.Controllers
             if (ModelState.IsValid)
             {
                 voiture.Proprietaire = db.Users.FirstOrDefault(u => u.Id == User.Identity.GetUserId());
+                new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db)).AddToRole(User.Identity.GetUserId(), "Conducteur");
+                var currentUser = db.Users.FirstOrDefault(u => u.Id == User.Identity.GetUserId());
+                currentUser.ListeVoitures.Add(voiture);
                 db.Voitures.Add(voiture);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -123,6 +127,11 @@ namespace CarShare.Controllers
         {
             Voiture voiture = db.Voitures.Find(id);
             db.Voitures.Remove(voiture);
+            var currentUser = db.Users.FirstOrDefault(u => u.Id == User.Identity.GetUserId());
+            if (!currentUser.ListeVoitures.Any())
+            {
+                new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db)).RemoveFromRole(User.Identity.GetUserId(), "Conducteur");
+            }
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -201,6 +201,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUsersVM.cs" />
+    <Compile Include="Models\EmplacementViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ListApplicationUsersVM.cs" />
     <Compile Include="Models\TrajetsViewModels.cs" />

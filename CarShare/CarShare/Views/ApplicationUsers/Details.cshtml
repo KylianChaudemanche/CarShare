@@ -1,4 +1,5 @@
 ﻿@model CarShare.BO.ApplicationUser
+    @using Microsoft.AspNet.Identity
 
 @{
     ViewBag.Title = "Details";
@@ -50,6 +51,11 @@
             @Html.DisplayFor(model => model.PhoneNumber)
         </dd>
     </dl>
+
+    @if (Model.Id == User.Identity.GetUserId())
+    {
+        @Html.ActionLink("Ajouter un vehicule", "Create", "Voitures")
+    }
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
