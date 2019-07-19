@@ -10,7 +10,7 @@ using CarShare.Models;
 
 namespace CarShare.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;

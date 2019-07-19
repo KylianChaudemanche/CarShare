@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CarShare.BO;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CarShare.Models
@@ -64,6 +65,25 @@ namespace CarShare.Models
 
     public class RegisterViewModel
     {
+        [Required]
+        [Display(Name = "Nom")]
+        public string Nom { get; set; }
+
+        [Required]
+        [Display(Name = "Prénom")]
+        public string Prenom { get; set; }
+
+        [Required]
+        [Phone]
+        [Display(Name = "Téléphone")]
+        public string Telephone { get; set; }
+
+        [Required]
+        [Display(Name = "École")]
+        public int IdSelectedEcole { get; set; }
+
+        public List<Ecole> EcolesDispo { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Courrier électronique")]

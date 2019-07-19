@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity;
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -33,13 +34,20 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
-                    <li>@Html.ActionLink("À propos de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Écoles", "Index", "Ecoles")</li>
-                    <li>@Html.ActionLink("Trajets", "Index", "Trajets")</li>
-                    <li>@Html.ActionLink("Arrêts", "Index", "Arrets")</li>
-                    <li>@Html.ActionLink("Utilisateur", "Index", "Manage")</li>
-                    <li>@Html.ActionLink("Voiture", "Index", "Voitures")</li>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Mon Compte", "Edit/" + User.Identity.GetUserId(), "ApplicationUsers")</li>
+                        <li>@Html.ActionLink("Trajets", "Index", "Trajets")</li>
+                        <li>@Html.ActionLink("Emplacements Favoris", "Index", "Emplacements")</li>
+                        if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+                        {
+                            <li>@Html.ActionLink("Utilisateurs", "Index", "ApplicationUsers")</li>
+                            <li>@Html.ActionLink("Écoles", "Index", "Ecoles")</li>
+                            <li>@Html.ActionLink("Utilisateurs", "Index", "ApplicationUsers")</li>
+                        }
+                    }
+
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

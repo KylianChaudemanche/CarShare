@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CarShare.BO.Trajet>
+﻿@model CarShare.Models.TrajetsViewModels
 
 @{
     ViewBag.Title = "Index";
@@ -7,15 +7,18 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @if (User.IsInRole("Conducteur"))
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
+            @Html.DisplayNameFor(model => model.Trajet.Date)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Conducteur)
+            @Html.DisplayNameFor(model => model.Trajet.Conducteur)
         </th>
         <th>
             @Html.Label("Départ", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -28,29 +31,40 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.ActionLink(item.Conducteur.Prenom + " " + item.Conducteur.Nom,
-            "/ApplicationUser/Edit",
-            new { id = item.Conducteur.Id })
-            
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Depart.Intitule)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Depart.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var trajet in Model.listeTrajets)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => trajet.Date)
+            </td>
+            <td>
+                @Html.ActionLink(trajet.Conducteur.Prenom + " " + trajet.Conducteur.Nom,
+                "Edit",
+                "ApplicationUser",
+                new { id = trajet.Conducteur.Id })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => trajet.Depart.Intitule)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => trajet.Depart.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = trajet.Id }) |
+
+                @if (Model.currentUser.Id == trajet.Conducteur.Id)
+                {
+
+                    @Html.ActionLink("Details", "Details", new { id = trajet.Id })
+                }
+                else
+                {
+                    @Html.ActionLink("Demande un arret", "Details", new { id = trajet.Id })
+                }
+
+                | @Html.ActionLink("Delete", "Delete", new { id = trajet.Id })
+            </td>
+        </tr>
+    }
 
 </table>

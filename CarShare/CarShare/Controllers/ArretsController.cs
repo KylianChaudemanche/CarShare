@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace CarShare.Controllers
 {
+    [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
     public class ArretsController : Controller
     {
 
@@ -44,6 +45,7 @@ namespace CarShare.Controllers
         }
 
         // GET: Arrets/Create
+        [Authorize(Roles = "SuperAdmin,Utilisateur")]
         public ActionResult Create()
         {
             ArretsViewModels vm = CreateVM();
@@ -101,6 +103,7 @@ namespace CarShare.Controllers
         }
 
         // GET: Arrets/Edit/5
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -120,6 +123,7 @@ namespace CarShare.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Edit([Bind(Include = "Id,Horaire,EtatArret")] Arret arret)
         {
             if (ModelState.IsValid)
@@ -132,6 +136,7 @@ namespace CarShare.Controllers
         }
 
         // GET: Arrets/Delete/5
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -147,6 +152,7 @@ namespace CarShare.Controllers
         }
 
         // POST: Arrets/Delete/5
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

@@ -22,12 +22,17 @@ namespace CarShare.Controllers
         private ApplicationUser currentUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
 
         // GET: Trajets
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Index()
         {
-            return View(db.Trajets);
+            var vm = new TrajetsViewModels();
+            vm.currentUser = currentUser;
+            vm.listeTrajets = db.Trajets.ToList();
+            return View(vm);
         }
 
         // GET: Trajets/Details/5
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -44,6 +49,7 @@ namespace CarShare.Controllers
         }
 
         // GET: Trajets/Create
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Create()
         {
             var vm = new TrajetsViewModels();
@@ -63,6 +69,7 @@ namespace CarShare.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Create(TrajetsViewModels vm)
         {
             vm.Conducteur = db.Users.Find(currentUser.Id);
@@ -122,6 +129,7 @@ namespace CarShare.Controllers
         }
 
         // GET: Trajets/Edit/5
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -150,6 +158,7 @@ namespace CarShare.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Edit(TrajetsViewModels vm)
         {
             vm.Trajet = db.Trajets.Find(vm.Trajet.Id);
@@ -180,6 +189,7 @@ namespace CarShare.Controllers
         }
 
         // GET: Trajets/Delete/5
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -197,6 +207,7 @@ namespace CarShare.Controllers
         // POST: Trajets/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin,Admin,Utilisateur")]
         public ActionResult DeleteConfirmed(int id)
         {
             Trajet trajet = db.Trajets.Find(id);
