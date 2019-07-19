@@ -10,6 +10,7 @@ namespace CarShare.Models
     public class TrajetsViewModels
     {
         public Trajet Trajet { get; set; }
+        public List<Trajet> listeTrajets { get; set; }
         public ApplicationUser Conducteur { get; set; }
         public List<ApplicationUser> Passagers { get; set; }
         public List<Arret> listeArrets { get; set; }
@@ -28,5 +29,6 @@ namespace CarShare.Models
         public DateTime selectedDate { get; set; }
         public int selectedDepart{ get; set; }
         public int selectedArrivee { get; set; }
+        public ApplicationUser currentUser { get; set; }
     }
 }
