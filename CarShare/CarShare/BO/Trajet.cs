@@ -11,7 +11,6 @@ namespace CarShare.BO
     {
         public virtual Emplacement Depart { get; set; }
         public virtual Emplacement Arrive { get; set; }
-        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
         public virtual ApplicationUser Conducteur { get; set; }
         public virtual List<ApplicationUser> Passagers { get; set; }

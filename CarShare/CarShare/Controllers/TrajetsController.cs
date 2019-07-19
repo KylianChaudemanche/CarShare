@@ -23,7 +23,10 @@ namespace CarShare.Controllers
         // GET: Trajets
         public ActionResult Index()
         {
-            return View(db.Trajets);
+            var vm = new TrajetsViewModels();
+            vm.currentUser = currentUser;
+            vm.listeTrajets = db.Trajets.ToList();
+            return View(vm);
         }
 
         // GET: Trajets/Details/5
