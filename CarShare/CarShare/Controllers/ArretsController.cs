@@ -16,7 +16,11 @@ namespace CarShare.Controllers
 {
     public class ArretsController : Controller
     {
+
         private ApplicationDbContext db = new ApplicationDbContext();
+        //ArretsViewModels vm = new ArretsViewModels();
+
+          
 
         // GET: Arrets
         public ActionResult Index()
@@ -42,7 +46,22 @@ namespace CarShare.Controllers
         // GET: Arrets/Create
         public ActionResult Create()
         {
-            return View();
+            ArretsViewModels vm = CreateVM();
+            return View(vm);
+        }
+
+        // GET: Arrets/Create
+        public ArretsViewModels CreateVM(int id = 0)
+        {
+            ArretsViewModels vm = new ArretsViewModels();
+
+            vm.EtatArret = 0;
+            vm.selectedLongitude = -1.69F;
+            vm.selectedLatitude = 48.38F;
+            vm.Emplacement = new Emplacement() { Latitude = vm.selectedLatitude, Longitude = vm.selectedLongitude };
+            vm.Trajet = db.Trajets.Find(vm.selectedTrajet);
+            vm.Arret = db.Arrets.FirstOrDefault(p => p.Id == id);
+            return vm;
         }
 
         // POST: Arrets/Create
@@ -50,14 +69,19 @@ namespace CarShare.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Horaire,EtatArret")] Arret arret)
+        public ActionResult Create(ArretsViewModels vm)
         {
+            
+            
             if (ModelState.IsValid)
             {
+                var arret = vm.Arret;
+                
                 db.Arrets.Add(arret);
                 db.SaveChanges();
                 Task.Factory.StartNew(() =>
                 {
+
                     var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
                     var client = new SendGridClient(apiKey);
                     var from = new EmailAddress("test@example.com", "Example User");
@@ -73,7 +97,7 @@ namespace CarShare.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(arret);
+            return View();
         }
 
         // GET: Arrets/Edit/5

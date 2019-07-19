@@ -21,7 +21,7 @@ namespace CarShare.Models
         public DbSet<Emplacement> Emplacements { get; set; }
         public DbSet<Arret> Arrets { get; set; }
         public DbSet<Ecole> Ecoles { get; set; }
-        public DbSet<Trajet> Trajets { get; set; }
+        public DbSet<trajet> Trajets { get; set; }
         public DbSet<Voiture> Voitures { get; set; }
 
 
@@ -47,7 +47,7 @@ namespace CarShare.Models
             modelBuilder.Entity<Emplacement>().HasOptional(e => e.Arret).WithOptionalPrincipal(a => a.Emplacement);
             modelBuilder.Entity<Emplacement>().HasOptional(e => e.Ecole).WithOptionalPrincipal(e => e.Emplacement);
 
-            modelBuilder.Entity<Trajet>().HasMany(t => t.Arrets).WithOptional(a => a.Trajet);
+            modelBuilder.Entity<trajet>().HasMany(t => t.Arrets).WithOptional(a => a.Trajet);
 
             modelBuilder.Entity<ApplicationUser>().HasMany(u => u.EmplacementsFavoris);
             modelBuilder.Entity<ApplicationUser>().HasOptional(u => u.Ecole).WithMany(e => e.ListeEleves);
@@ -55,8 +55,8 @@ namespace CarShare.Models
             modelBuilder.Entity<ApplicationUser>().HasMany(u => u.ListeTrajetsPassager).WithMany(t => t.Passagers);
             modelBuilder.Entity<ApplicationUser>().HasMany(u => u.ListeTrajetsConducteur).WithOptional(t => t.Conducteur);
 
-            modelBuilder.Entity<Trajet>().HasMany(t => t.Passagers).WithMany(p => p.ListeTrajetsPassager);
-            modelBuilder.Entity<Trajet>().HasOptional(t => t.Conducteur).WithMany(c => c.ListeTrajetsConducteur);
+            modelBuilder.Entity<trajet>().HasMany(t => t.Passagers).WithMany(p => p.ListeTrajetsPassager);
+            modelBuilder.Entity<trajet>().HasOptional(t => t.Conducteur).WithMany(c => c.ListeTrajetsConducteur);
 
 
 

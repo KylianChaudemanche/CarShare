@@ -70,7 +70,7 @@ namespace CarShare.BO
         public static List<Arret> listeArrets = new List<Arret> { arret1, arret2 };
 
         // Création Trajet
-        public static Trajet totoDaily = new Trajet() { Id = 1, Depart = emplacementToto, Arrive = toto.Ecole.Emplacement, Arrets = listeArrets, Conducteur = toto, Passagers = listePassagers, Date = DateTime.Now };
+        public static trajet totoDaily = new trajet() { Id = 1, Depart = emplacementToto, Arrive = toto.Ecole.Emplacement, Arrets = listeArrets, Conducteur = toto, Passagers = listePassagers, Date = DateTime.Now };
 
         // Ajout du Trajet dans les Arrets
         public JeuxDeDonnees()

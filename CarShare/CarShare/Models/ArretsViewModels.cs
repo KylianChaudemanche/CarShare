@@ -12,9 +12,15 @@ namespace CarShare.Models
     {
         public Arret Arret { get; set; }
 
-        public Trajet Trajet { get; set; }
+        public trajet Trajet { get; set; }
+
+        public int selectedTrajet { get; set; }
 
         public Emplacement Emplacement { get; set; }
+
+        public float selectedLatitude { get; set; }
+
+        public float selectedLongitude { get; set; }
 
         [DataType(DataType.Time)]
         public DateTime Horaire { get; set; }

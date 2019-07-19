@@ -34,7 +34,7 @@ namespace CarShare.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Trajet trajet = db.Trajets.Find(id);
+            trajet trajet = db.Trajets.Find(id);
             if (trajet == null)
             {
                 return HttpNotFound();
@@ -55,7 +55,7 @@ namespace CarShare.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Date")] Trajet trajet)
+        public ActionResult Create([Bind(Include = "Id,Date")] trajet trajet)
         {
             if (ModelState.IsValid)
             {
@@ -74,7 +74,7 @@ namespace CarShare.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Trajet trajet = db.Trajets.Find(id);
+            trajet trajet = db.Trajets.Find(id);
             if (trajet == null)
             {
                 return HttpNotFound();
@@ -87,7 +87,7 @@ namespace CarShare.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Date")] Trajet trajet)
+        public ActionResult Edit([Bind(Include = "Id,Date")] trajet trajet)
         {
             if (ModelState.IsValid)
             {
@@ -105,7 +105,7 @@ namespace CarShare.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Trajet trajet = db.Trajets.Find(id);
+            trajet trajet = db.Trajets.Find(id);
             if (trajet == null)
             {
                 return HttpNotFound();
@@ -118,7 +118,7 @@ namespace CarShare.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Trajet trajet = db.Trajets.Find(id);
+            trajet trajet = db.Trajets.Find(id);
             db.Trajets.Remove(trajet);
             db.SaveChanges();
             return RedirectToAction("Index");

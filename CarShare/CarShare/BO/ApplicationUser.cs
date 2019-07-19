@@ -23,8 +23,8 @@ namespace CarShare.BO
         public Ecole Ecole { get; set; }
         public List<Emplacement> EmplacementsFavoris { get; set; }
         public bool IsAdmin { get; set; }
-        public virtual List<Trajet> ListeTrajetsConducteur { get; set; }
-        public virtual List<Trajet> ListeTrajetsPassager { get; set; }
+        public virtual List<trajet> ListeTrajetsConducteur { get; set; }
+        public virtual List<trajet> ListeTrajetsPassager { get; set; }
         public string Description { get; set; }
         public Voiture Voiture { get; set; }
 

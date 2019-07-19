@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CarShare.BO
 {
-    public class Trajet : IDbEntity
+    public class trajet : IDbEntity
     {
         public Emplacement Depart { get; set; }
         public Emplacement Arrive { get; set; }
